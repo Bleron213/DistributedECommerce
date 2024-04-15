@@ -1,4 +1,3 @@
-using BoxCommerce.Orders.API.Extensions;
 using BoxCommerce.Orders.API.Services;
 using BoxCommerce.Orders.Application;
 using BoxCommerce.Orders.Application.Common.Infrastructure;
@@ -13,9 +12,10 @@ using Serilog.Exceptions.Destructurers;
 using Serilog.Exceptions.EntityFrameworkCore.Destructurers;
 using Serilog.Exceptions.SqlServer.Destructurers;
 using Serilog.Exceptions;
-using BoxCommerce.Orders.API.Middleware;
 using BoxCommerce.Warehouse.ApiClient.Configurations;
 using BoxCommerce.Warehouse.ApiClient.Extensions;
+using BoxCommerce.CustomComponent.API.Extensions;
+using BoxCommerce.CustomComponent.API.Middleware;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()

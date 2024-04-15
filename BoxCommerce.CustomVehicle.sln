@@ -61,21 +61,35 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCommerce.Orders.UnitTest
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{02B18F2A-8950-439B-BEF3-40381FE45FAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCommerce.Utils", "BoxCommerce.Utils\BoxCommerce.Utils.csproj", "{B2E6B06D-80A6-4F47-8FDB-7609DBF5AF7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCommerce.Utils", "BoxCommerce.Utils\BoxCommerce.Utils.csproj", "{B2E6B06D-80A6-4F47-8FDB-7609DBF5AF7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCommerce.Warehouse.API", "BoxCommerce.Warehouse.API\BoxCommerce.Warehouse.API.csproj", "{FB5188D4-17B5-4693-A42C-AE92BC3B2A1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCommerce.Warehouse.API", "BoxCommerce.Warehouse.API\BoxCommerce.Warehouse.API.csproj", "{FB5188D4-17B5-4693-A42C-AE92BC3B2A1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCommerce.Warehouse.Application", "BoxCommerce.Warehouse.Application\BoxCommerce.Warehouse.Application.csproj", "{255674E0-B205-420F-BE7F-0F22F8C64BF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCommerce.Warehouse.Application", "BoxCommerce.Warehouse.Application\BoxCommerce.Warehouse.Application.csproj", "{255674E0-B205-420F-BE7F-0F22F8C64BF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCommerce.Warehouse.Domain", "BoxCommerce.Warehouse.Domain\BoxCommerce.Warehouse.Domain.csproj", "{52B2BC3D-0209-4989-94D3-A0FA0C9E06F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCommerce.Warehouse.Domain", "BoxCommerce.Warehouse.Domain\BoxCommerce.Warehouse.Domain.csproj", "{52B2BC3D-0209-4989-94D3-A0FA0C9E06F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCommerce.Warehouse.Infrastructure", "BoxCommerce.Warehouse.Infrastructure\BoxCommerce.Warehouse.Infrastructure.csproj", "{40550150-0AC5-4C6D-9340-1D83EFE22067}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCommerce.Warehouse.Infrastructure", "BoxCommerce.Warehouse.Infrastructure\BoxCommerce.Warehouse.Infrastructure.csproj", "{40550150-0AC5-4C6D-9340-1D83EFE22067}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCommerce.Warehouse.Common", "BoxCommerce.Warehouse.Common\BoxCommerce.Warehouse.Common.csproj", "{DEB1C7A3-B9F9-4498-818D-7A44E3712F44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCommerce.Warehouse.Common", "BoxCommerce.Warehouse.Common\BoxCommerce.Warehouse.Common.csproj", "{DEB1C7A3-B9F9-4498-818D-7A44E3712F44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCommerce.Warehouse.Domain.Errors", "BoxCommerce.Warehouse.Domain.Errors\BoxCommerce.Warehouse.Domain.Errors.csproj", "{2631173B-A4EB-4F9A-8C7F-A865A715DD0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCommerce.Warehouse.Domain.Errors", "BoxCommerce.Warehouse.Domain.Errors\BoxCommerce.Warehouse.Domain.Errors.csproj", "{2631173B-A4EB-4F9A-8C7F-A865A715DD0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCommerce.Warehouse.ApiClient", "BoxCommerce.Warehouse.ApiClient\BoxCommerce.Warehouse.ApiClient.csproj", "{7FE7235E-BAC0-4329-B5D1-4BCA2609D899}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCommerce.Warehouse.ApiClient", "BoxCommerce.Warehouse.ApiClient\BoxCommerce.Warehouse.ApiClient.csproj", "{7FE7235E-BAC0-4329-B5D1-4BCA2609D899}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCommerce.CustomComponent.API", "BoxCommerce.CustomComponent.API\BoxCommerce.CustomComponent.API.csproj", "{231DCCAD-4B9B-44F4-AA91-ED40E2DEBB0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCommerce.CustomComponent.Application", "BoxCommerce.CustomComponent.Application\BoxCommerce.CustomComponent.Application.csproj", "{104F84DE-E92A-4926-B0B5-7FAB54CDF862}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCommerce.CustomComponent.Domain", "BoxCommerce.CustomComponent.Domain\BoxCommerce.CustomComponent.Domain.csproj", "{2158CC1A-45A8-4C4A-86C6-E0D151D71968}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCommerce.CustomComponent.Infrastructure", "BoxCommerce.CustomComponent.Infrastructure\BoxCommerce.CustomComponent.Infrastructure.csproj", "{745A6D61-F954-4D08-BF49-CFC4C5E00342}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCommerce.CustomComponent.Domain.Errors", "BoxCommerce.CustomComponent.Domain.Errors\BoxCommerce.CustomComponent.Domain.Errors.csproj", "{985CA62E-E780-42DE-98A9-7C9399A7FA13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCommerce.CustomComponent.Common", "BoxCommerce.CustomComponent.Common\BoxCommerce.CustomComponent.Common.csproj", "{06A2C1A9-2A1A-4672-8B16-82B2050EBE1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxCommerce.CustomComponent.ApiClient", "BoxCommerce.CustomComponent.ApiClient\BoxCommerce.CustomComponent.ApiClient.csproj", "{EEAFB933-8FD4-48BA-8687-E410B95AAC29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -155,6 +169,34 @@ Global
 		{7FE7235E-BAC0-4329-B5D1-4BCA2609D899}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FE7235E-BAC0-4329-B5D1-4BCA2609D899}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FE7235E-BAC0-4329-B5D1-4BCA2609D899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{231DCCAD-4B9B-44F4-AA91-ED40E2DEBB0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{231DCCAD-4B9B-44F4-AA91-ED40E2DEBB0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{231DCCAD-4B9B-44F4-AA91-ED40E2DEBB0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{231DCCAD-4B9B-44F4-AA91-ED40E2DEBB0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{104F84DE-E92A-4926-B0B5-7FAB54CDF862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{104F84DE-E92A-4926-B0B5-7FAB54CDF862}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{104F84DE-E92A-4926-B0B5-7FAB54CDF862}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{104F84DE-E92A-4926-B0B5-7FAB54CDF862}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2158CC1A-45A8-4C4A-86C6-E0D151D71968}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2158CC1A-45A8-4C4A-86C6-E0D151D71968}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2158CC1A-45A8-4C4A-86C6-E0D151D71968}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2158CC1A-45A8-4C4A-86C6-E0D151D71968}.Release|Any CPU.Build.0 = Release|Any CPU
+		{745A6D61-F954-4D08-BF49-CFC4C5E00342}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{745A6D61-F954-4D08-BF49-CFC4C5E00342}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{745A6D61-F954-4D08-BF49-CFC4C5E00342}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{745A6D61-F954-4D08-BF49-CFC4C5E00342}.Release|Any CPU.Build.0 = Release|Any CPU
+		{985CA62E-E780-42DE-98A9-7C9399A7FA13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{985CA62E-E780-42DE-98A9-7C9399A7FA13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{985CA62E-E780-42DE-98A9-7C9399A7FA13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{985CA62E-E780-42DE-98A9-7C9399A7FA13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06A2C1A9-2A1A-4672-8B16-82B2050EBE1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06A2C1A9-2A1A-4672-8B16-82B2050EBE1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06A2C1A9-2A1A-4672-8B16-82B2050EBE1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06A2C1A9-2A1A-4672-8B16-82B2050EBE1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEAFB933-8FD4-48BA-8687-E410B95AAC29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEAFB933-8FD4-48BA-8687-E410B95AAC29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEAFB933-8FD4-48BA-8687-E410B95AAC29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEAFB933-8FD4-48BA-8687-E410B95AAC29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -182,7 +224,6 @@ Global
 		{7D23C8B2-64DD-47E5-9C5F-C4D6C86D2578} = {A80355DC-FB8F-4AD5-BC5B-91872A411397}
 		{A0E2B703-71C1-4F01-BB5D-27E3BE9D2F10} = {DCAEE8C7-19E5-4306-A7EC-1EC311384E1D}
 		{5115E41B-F16F-4564-BB50-BC592165759A} = {DCAEE8C7-19E5-4306-A7EC-1EC311384E1D}
-		{759646A0-0313-45D2-ABC8-077312E2EB6A} = {4747B423-14E2-4A5C-9908-ED72BC26E270}
 		{65C780DB-13CB-4579-B400-FAE5F81CD18B} = {DD2834E0-55ED-422F-85CF-038E8FBE0EA9}
 		{64ABA78C-EC29-4382-A191-88673ACACFA2} = {DD2834E0-55ED-422F-85CF-038E8FBE0EA9}
 		{B2E6B06D-80A6-4F47-8FDB-7609DBF5AF7C} = {02B18F2A-8950-439B-BEF3-40381FE45FAB}
@@ -193,6 +234,13 @@ Global
 		{DEB1C7A3-B9F9-4498-818D-7A44E3712F44} = {60125F2A-DC99-4885-9D50-33EB69F98275}
 		{2631173B-A4EB-4F9A-8C7F-A865A715DD0C} = {60125F2A-DC99-4885-9D50-33EB69F98275}
 		{7FE7235E-BAC0-4329-B5D1-4BCA2609D899} = {F26198BF-AD1A-4A6C-B23F-DF02DB708511}
+		{231DCCAD-4B9B-44F4-AA91-ED40E2DEBB0F} = {823F4DA3-4F74-4374-871F-4F170FC90C3A}
+		{104F84DE-E92A-4926-B0B5-7FAB54CDF862} = {823F4DA3-4F74-4374-871F-4F170FC90C3A}
+		{2158CC1A-45A8-4C4A-86C6-E0D151D71968} = {823F4DA3-4F74-4374-871F-4F170FC90C3A}
+		{745A6D61-F954-4D08-BF49-CFC4C5E00342} = {823F4DA3-4F74-4374-871F-4F170FC90C3A}
+		{985CA62E-E780-42DE-98A9-7C9399A7FA13} = {4213F506-B68E-41C8-900F-BA6CA76660FF}
+		{06A2C1A9-2A1A-4672-8B16-82B2050EBE1F} = {4213F506-B68E-41C8-900F-BA6CA76660FF}
+		{EEAFB933-8FD4-48BA-8687-E410B95AAC29} = {F494819B-64A6-4A11-9669-CF768B7294A7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {31ABABA0-3699-4BD1-A6E7-723AA985E763}

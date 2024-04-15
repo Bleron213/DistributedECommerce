@@ -1,4 +1,4 @@
-﻿using BoxCommerce.Orders.Domain.Entities;
+﻿using BoxCommerce.CustomComponent.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
@@ -7,13 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Orders.Application.Common.Infrastructure
+namespace BoxCommerce.CustomComponent.Application.Common.Infrastructure
 {
     public interface IBoxCommerceOrderDbContext
     {
-
         public DbSet<AuditTrail> AuditTrails { get; set; }
-        public DbSet<Order> Orders { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
         int SaveChanges();
         ChangeTracker ChangeTracker { get; }

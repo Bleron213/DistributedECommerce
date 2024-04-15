@@ -21,8 +21,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Common\Application\" />
-	  <Folder Include="Orders\EventHandlers\" />
-	  <Folder Include="Orders\Queries\" />
 	</ItemGroup>
 
 </Project>
