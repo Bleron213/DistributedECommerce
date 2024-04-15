@@ -1,4 +1,4 @@
-﻿using BoxCommerce.Orders.Application.Common.Infrastructure;
+﻿using BoxCommerce.CustomComponent.Application.Common.Infrastructure;
 using BoxCommerce.Utils.Errors;
 using BoxCommerce.Utils.Exceptions;
 using FluentValidation;

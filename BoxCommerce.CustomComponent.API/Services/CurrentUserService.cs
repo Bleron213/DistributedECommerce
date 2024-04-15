@@ -1,4 +1,4 @@
-﻿using BoxCommerce.Orders.Application.Common.Infrastructure;
+﻿using BoxCommerce.CustomComponent.Application.Common.Infrastructure;
 
 namespace BoxCommerce.CustomComponent.API.Services
 {

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BoxCommerce.Orders.Infrastructure.Data.Migrations
 {
-    [DbContext(typeof(BoxCommerceOrderDbContext))]
+    [DbContext(typeof(OrderDbContext))]
     [Migration("20240414201758_InitialMigration")]
     partial class InitialMigration
     {

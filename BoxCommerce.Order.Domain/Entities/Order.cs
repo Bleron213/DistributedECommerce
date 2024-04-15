@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace BoxCommerce.Orders.Domain.Entities
 {
+
     public class Order : BaseEntity, IAuditable
     {
         public Order

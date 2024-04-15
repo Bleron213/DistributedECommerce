@@ -1,8 +1,3 @@
-using BoxCommerce.Orders.API.Services;
-using BoxCommerce.Orders.Application;
-using BoxCommerce.Orders.Application.Common.Infrastructure;
-using BoxCommerce.Orders.Infrastructure;
-using BoxCommerce.Orders.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -16,6 +11,9 @@ using BoxCommerce.Warehouse.ApiClient.Configurations;
 using BoxCommerce.Warehouse.ApiClient.Extensions;
 using BoxCommerce.CustomComponent.API.Extensions;
 using BoxCommerce.CustomComponent.API.Middleware;
+using BoxCommerce.CustomComponent.Application;
+using BoxCommerce.CustomComponent.Infrastructure;
+using BoxCommerce.CustomComponent.Infrastructure.Data;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -93,10 +91,6 @@ try
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<BoxCommerceOrderDbContext>();
     await db.Database.MigrateAsync();
-
-    var currentUserService = scope.ServiceProvider.GetRequiredService<ICurrentUserService>();
-
-    await new OrderSeeder(db, currentUserService).SeedDefaultData();
 
     app.Run();
 

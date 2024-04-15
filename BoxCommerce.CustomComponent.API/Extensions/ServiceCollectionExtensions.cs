@@ -1,5 +1,5 @@
 ﻿using BoxCommerce.CustomComponent.API.Services;
-using BoxCommerce.Orders.Application.Common.Infrastructure;
+using BoxCommerce.CustomComponent.Application.Common.Infrastructure;
 
 namespace BoxCommerce.CustomComponent.API.Extensions
 {

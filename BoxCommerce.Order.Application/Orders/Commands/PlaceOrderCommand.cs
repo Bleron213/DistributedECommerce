@@ -16,9 +16,9 @@ namespace BoxCommerce.Orders.Application.Orders.Commands
 
         public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, PlaceOrderResponse>
         {
-            private readonly IBoxCommerceOrderDbContext _boxCommerceOrderDbContext;
+            private readonly IOrderDbContext _boxCommerceOrderDbContext;
 
-            public PlaceOrderCommandHandler(IBoxCommerceOrderDbContext boxCommerceOrderDbContext)
+            public PlaceOrderCommandHandler(IOrderDbContext boxCommerceOrderDbContext)
             {
                 _boxCommerceOrderDbContext = boxCommerceOrderDbContext;
             }
