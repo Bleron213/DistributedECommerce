@@ -10,16 +10,22 @@ namespace BoxCommerce.Orders.API.Controllers.V1
     public class OrdersController : ApiBaseController
     {
         private readonly ISender _mediator;
+        private readonly ILogger<OrdersController> _logger;
 
-        public OrdersController(ISender mediator)
+        public OrdersController(
+            ISender mediator,
+            ILogger<OrdersController> logger
+            )
         {
             _mediator = mediator;
+            _logger = logger;
         }
 
 
         [HttpPost("Order/Place")]
         public async Task<IActionResult> PlaceOrder(PlaceOrderRequest placeOrderRequest)
-        {            
+        {
+            _logger.LogInformation("Tedua");
             var result = await _mediator.Send(new PlaceOrderCommand(placeOrderRequest));
             return Ok(result);
         }

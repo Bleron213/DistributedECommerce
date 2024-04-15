@@ -19,6 +19,7 @@
     <ProjectReference Include="..\BoxCommerce.Order.Application\BoxCommerce.Orders.Application.csproj" />
     <ProjectReference Include="..\BoxCommerce.Order.Common\BoxCommerce.Orders.Common.csproj" />
     <ProjectReference Include="..\BoxCommerce.Order.Infrastructure\BoxCommerce.Orders.Infrastructure.csproj" />
+    <ProjectReference Include="..\BoxCommerce.Utils\BoxCommerce.Utils.csproj" />
   </ItemGroup>
 
 </Project>
