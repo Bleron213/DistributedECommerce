@@ -27,6 +27,7 @@ namespace BoxCommerce.Orders.API.Controllers.V1
         {
             _logger.LogInformation("Tedua");
             var result = await _mediator.Send(new PlaceOrderCommand(placeOrderRequest));
+            _logger.LogInformation("Ended");
             return Ok(result);
         }
 

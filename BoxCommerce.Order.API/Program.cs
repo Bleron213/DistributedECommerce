@@ -14,6 +14,7 @@ using Serilog.Exceptions.EntityFrameworkCore.Destructurers;
 using Serilog.Exceptions.SqlServer.Destructurers;
 using Serilog.Exceptions;
 using BoxCommerce.Orders.API.Middleware;
+using API.Middleware;
 
 
 Log.Logger = new LoggerConfiguration()
@@ -69,6 +70,7 @@ try
 
     var app = builder.Build();
 
+    app.UseMiddleware<RequestLoggingMiddleware>();
     app.UseMiddleware<ExceptionMiddleware>();
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())

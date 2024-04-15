@@ -24,6 +24,16 @@ public class RequestLoggingMiddleware
             valuesDictionary.Add("IpAddress", httpContext.Connection.RemoteIpAddress.ToString());
         }
 
+        if (httpContext.Request.Headers.ContainsKey("x-correlation-id"))
+        {
+            var value = httpContext.Request.Headers["x-correlation-id"];
+            valuesDictionary.Add("x-correlation-id", value);
+        } else
+        {
+            var value = Guid.NewGuid();
+            valuesDictionary.Add("x-correlation-id", value);
+        }
+
         var userAgentExists = httpContext?.Request?.Headers?.TryGetValue("User-Agent", out var userAgent);
 
         if (httpContext.Request.Headers.TryGetValue("User-Agent", out var headerValues))
