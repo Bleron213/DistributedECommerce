@@ -1,5 +1,3 @@
-using BoxCommerce.Orders.API.Extensions;
-using BoxCommerce.Orders.API.Services;
 using BoxCommerce.Orders.Application;
 using BoxCommerce.Orders.Application.Common.Infrastructure;
 using BoxCommerce.Orders.Infrastructure;
@@ -13,10 +11,9 @@ using Serilog.Exceptions.Destructurers;
 using Serilog.Exceptions.EntityFrameworkCore.Destructurers;
 using Serilog.Exceptions.SqlServer.Destructurers;
 using Serilog.Exceptions;
-using BoxCommerce.Orders.API.Middleware;
-using API.Middleware;
-using BoxCommerce.Warehouse.ApiClient.Configurations;
-using BoxCommerce.Warehouse.ApiClient.Extensions;
+using BoxCommerce.Warehouse.API.Extensions;
+using BoxCommerce.Warehouse.API.Middleware;
+using BoxCommerce.Warehouse.API.Services;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -47,11 +44,6 @@ try
     builder.Services.AddInfrastructureServices(builder.Configuration);
     builder.Services.AddApplicationServices();
     builder.Services.AddAPIServices();
-    builder.Services.AddHttpContextAccessor();
-
-    var warehouseApiClientConfiguration = new WarehouseApiClientConfiguration();
-    builder.Configuration.Bind("WarehouseApiClientConfiguration", warehouseApiClientConfiguration);
-    builder.Services.AddWarehouseApiClient(warehouseApiClientConfiguration);
 
     builder.Services
         .AddApiVersioning(options =>

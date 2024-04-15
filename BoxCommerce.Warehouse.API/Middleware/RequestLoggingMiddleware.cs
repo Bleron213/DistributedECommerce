@@ -1,7 +1,4 @@
-﻿using BoxCommerce.Orders.API.Middleware;
-using Newtonsoft.Json.Linq;
-
-namespace API.Middleware;
+﻿namespace BoxCommerce.Warehouse.API.Middleware;
 
 public class RequestLoggingMiddleware
 {
@@ -20,7 +17,7 @@ public class RequestLoggingMiddleware
     {
         var valuesDictionary = new Dictionary<string, object>();
 
-        if(httpContext?.Connection?.RemoteIpAddress != null)
+        if (httpContext?.Connection?.RemoteIpAddress != null)
         {
             valuesDictionary.Add("IpAddress", httpContext.Connection.RemoteIpAddress.ToString());
         }

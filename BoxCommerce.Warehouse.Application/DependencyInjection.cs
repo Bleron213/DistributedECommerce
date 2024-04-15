@@ -2,9 +2,9 @@
 using System.Reflection;
 using MediatR;
 using FluentValidation;
-using BoxCommerce.Orders.Application.Common.Behaviours;
+using BoxCommerce.Warehouse.Application.Common.Behaviours;
 
-namespace BoxCommerce.Orders.Application
+namespace BoxCommerce.Warehouse.Application
 {
     public static class DependencyInjection
     {
