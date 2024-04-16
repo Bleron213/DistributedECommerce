@@ -1,6 +1,6 @@
-﻿using BoxCommerce.Orders.Application.Common.Infrastructure;
-using BoxCommerce.Utils.Errors;
+﻿using BoxCommerce.Utils.Errors;
 using BoxCommerce.Utils.Exceptions;
+using BoxCommerce.Warehouse.Application.Common.Infrastructure;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Common;

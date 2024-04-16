@@ -6,7 +6,12 @@ namespace BoxCommerce.Orders.Common.Response
 {
     public class ProductResponse
     {
-        public Guid Id { get; set; }
+        public ProductResponse(string displayName, string name)
+        {
+            DisplayName = displayName;
+            Name = name;
+        }
+
         public string DisplayName { get; set; }
         public string Name { get; set; }
     }

@@ -1,9 +1,6 @@
-﻿using BoxCommerce.Orders.Application.Common.Infrastructure;
-using BoxCommerce.Orders.Application.Orders.Commands;
-using BoxCommerce.Orders.Common.Requests;
-using BoxCommerce.Warehouse.API.Controllers;
+﻿using BoxCommerce.Warehouse.Application.Stocks.Queries;
+using BoxCommerce.Warehouse.Common.Request;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BoxCommerce.Warehouse.API.Controllers.V1
@@ -22,11 +19,17 @@ namespace BoxCommerce.Warehouse.API.Controllers.V1
             _logger = logger;
         }
 
-        [HttpGet("ShabanDashi")]
-        public async Task<IActionResult> sHABAN()
+
+        [HttpPost("CheckInStock")]
+        public async Task<IActionResult> CheckInStock(VehicleInStockRequest request)
         {
-            _logger.LogInformation("In Shaban method");
-            return Ok();
+            _logger.LogInformation("Entering method {method}", nameof(CheckInStock));
+
+            var result = await _mediator.Send(new CheckInStockQuery(request));
+
+            _logger.LogInformation("leaving method {method}", nameof(CheckInStock));
+
+            return Ok(result);
         }
 
 

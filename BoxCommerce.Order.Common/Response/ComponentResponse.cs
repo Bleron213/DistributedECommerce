@@ -6,7 +6,14 @@ namespace BoxCommerce.Orders.Common.Response
 {
     public class ComponentResponse
     {
-        public Guid Id { get; set; }
+        public ComponentResponse(string componentName, string componentCode, ComponentType componentType)
+        {
+            ComponentName = componentName;
+            ComponentCode = componentCode;
+            ComponentType = componentType;
+        }
+
+        public string ComponentName { get; set; }
         public string ComponentCode { get; set; }
         public ComponentType ComponentType { get; set; }
     }

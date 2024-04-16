@@ -10,9 +10,10 @@ using System.Threading.Tasks;
 
 namespace BoxCommerce.Warehouse.Infrastructure.Data
 {
-    public class BoxCommerceOrderDbContext(DbContextOptions<BoxCommerceOrderDbContext> options) : DbContext(options), IBoxCommerceOrderDbContext
+    public class WarehouseDbContext(DbContextOptions<WarehouseDbContext> options) : DbContext(options), IWarehouseDbContext
     {
         public DbSet<AuditTrail> AuditTrails { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

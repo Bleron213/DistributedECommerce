@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace BoxCommerce.Warehouse.Application.Common.Infrastructure
 {
-    public interface IBoxCommerceOrderDbContext
+    public interface IWarehouseDbContext
     {
         public DbSet<AuditTrail> AuditTrails { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
         int SaveChanges();
         ChangeTracker ChangeTracker { get; }

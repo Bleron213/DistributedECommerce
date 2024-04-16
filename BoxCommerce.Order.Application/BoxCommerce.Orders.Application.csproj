@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BoxCommerce.Order.Common\BoxCommerce.Orders.Common.csproj" />
     <ProjectReference Include="..\BoxCommerce.Order.Domain\BoxCommerce.Orders.Domain.csproj" />
+    <ProjectReference Include="..\BoxCommerce.Warehouse.ApiClient\BoxCommerce.Warehouse.ApiClient.csproj" />
   </ItemGroup>
 
 </Project>

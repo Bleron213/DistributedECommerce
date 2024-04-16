@@ -14,13 +14,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\BoxCommerce.Order.Common\BoxCommerce.Orders.Common.csproj" />
 		<ProjectReference Include="..\BoxCommerce.Warehouse.Common\BoxCommerce.Warehouse.Common.csproj" />
 		<ProjectReference Include="..\BoxCommerce.Warehouse.Domain\BoxCommerce.Warehouse.Domain.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="Common\Application\" />
+	  <Folder Include="Stocks\Commands\" />
+	  <Folder Include="Stocks\EventHandlers\" />
 	</ItemGroup>
 
 </Project>

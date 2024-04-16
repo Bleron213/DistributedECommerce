@@ -1,5 +1,5 @@
-﻿using BoxCommerce.Orders.Application.Common.Infrastructure;
-using BoxCommerce.Warehouse.API.Services;
+﻿using BoxCommerce.Warehouse.API.Services;
+using BoxCommerce.Warehouse.Application.Common.Infrastructure;
 
 namespace BoxCommerce.Warehouse.API.Extensions
 {

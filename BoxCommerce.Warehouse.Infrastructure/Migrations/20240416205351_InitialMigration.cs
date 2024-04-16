@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace BoxCommerce.Orders.Infrastructure.Data.Migrations
+namespace BoxCommerce.Warehouse.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration
@@ -30,14 +30,13 @@ namespace BoxCommerce.Orders.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "Stocks",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderNumber = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    StockNumber = table.Column<int>(type: "int", nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -45,13 +44,13 @@ namespace BoxCommerce.Orders.Infrastructure.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.PrimaryKey("PK_Stocks", x => x.Id);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_OrderNumber",
-                table: "Orders",
-                column: "OrderNumber",
+                name: "IX_Stocks_Code_Type",
+                table: "Stocks",
+                columns: new[] { "Code", "Type" },
                 unique: true);
         }
 
@@ -62,7 +61,7 @@ namespace BoxCommerce.Orders.Infrastructure.Data.Migrations
                 name: "AuditTrails");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "Stocks");
         }
     }
 }

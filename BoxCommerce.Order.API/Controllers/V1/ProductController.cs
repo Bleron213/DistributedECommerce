@@ -2,6 +2,7 @@
 using BoxCommerce.Orders.Application.Orders.Commands;
 using BoxCommerce.Orders.Application.Products;
 using BoxCommerce.Orders.Common.Requests;
+using BoxCommerce.Orders.Common.Response;
 using BoxCommerce.Warehouse.ApiClient.Abstractions;
 using BoxCommerce.Warehouse.ApiClient.Clients;
 using MediatR;
@@ -28,17 +29,29 @@ namespace BoxCommerce.Orders.API.Controllers.V1
         }
 
 
-        [HttpGet("availableProducts")]
+        /// <summary>
+        /// Hardcoded because not relevant
+        /// 
+        /// Imagine these products come from another Microservice and are cached here. 
+        /// Every hour the list is refreshed 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("AvailableProducts")]
         public async Task<IActionResult> GetAvailableProducts()
         {
-            _logger.LogInformation("Request started {method}", nameof(GetAvailableProducts));
-
-            var result = await _mediator.Send(new GetAvailableProductsQuery());
-            
-            _logger.LogInformation("Request ended {method}", nameof(GetAvailableProducts));
-            return Ok(result);
+            return Ok(new List<ProductResponse>
+            {
+                new ProductResponse("Volkswagen Golf GTI", "VOLKSWAGEN_GOLF_GTI"),
+                new ProductResponse("BMW M3", "BMW_M3"),
+                new ProductResponse("Audi RS3", "AUDI_RS3"),
+                new ProductResponse("Mercedes-Benz AMG C63", "MERCEDES_BENZ_AMG_C63"),
+                new ProductResponse("Porsche 911 Carrera", "PORSCHE_911_CARRERA"),
+                new ProductResponse("Volkswagen Passat R-Line", "VOLKSWAGEN_PASSAT_R_LINE"),
+                new ProductResponse("BMW M5", "BMW_M5"),
+                new ProductResponse("Audi RS6 Avant", "AUDI_RS6_AVANT"),
+                new ProductResponse("Mercedes-Benz AMG E63", "MERCEDES_BENZ_AMG_E63"),
+                new ProductResponse("Porsche Cayenne Turbo S", "PORSCHE_CAYENNE_TURBO_S")
+            });
         }
-
-        
     }
 }

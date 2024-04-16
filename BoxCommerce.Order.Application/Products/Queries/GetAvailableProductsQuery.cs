@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Orders.Application.Products
+namespace BoxCommerce.Orders.Application.Products.Queries
 {
     public class GetAvailableProductsQuery : IRequest<List<ProductResponse>>
     {

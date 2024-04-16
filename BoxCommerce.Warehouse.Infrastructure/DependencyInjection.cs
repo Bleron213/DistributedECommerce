@@ -21,7 +21,7 @@ namespace BoxCommerce.Warehouse.Infrastructure
             services.AddScoped<AuditableEntityInterceptor>();
             services.AddScoped<AuditTrailInterceptor>();
 
-            services.AddDbContext<IBoxCommerceOrderDbContext, BoxCommerceOrderDbContext>((sp, options) =>
+            services.AddDbContext<IWarehouseDbContext, WarehouseDbContext>((sp, options) =>
             {
                 options.AddInterceptors
                 (

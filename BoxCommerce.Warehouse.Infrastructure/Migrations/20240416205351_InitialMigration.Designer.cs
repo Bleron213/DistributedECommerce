@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BoxCommerce.Orders.Infrastructure.Data.Migrations
+namespace BoxCommerce.Warehouse.Infrastructure.Migrations
 {
-    [DbContext(typeof(BoxCommerceOrderDbContext))]
-    [Migration("20240414201758_InitialMigration")]
+    [DbContext(typeof(WarehouseDbContext))]
+    [Migration("20240416205351_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace BoxCommerce.Orders.Infrastructure.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BoxCommerce.Orders.Domain.Entities.AuditTrail", b =>
+            modelBuilder.Entity("BoxCommerce.Warehouse.Domain.Entities.AuditTrail", b =>
                 {
                     b.Property<Guid>("AuditId")
                         .ValueGeneratedOnAdd()
@@ -63,10 +63,15 @@ namespace BoxCommerce.Orders.Infrastructure.Data.Migrations
                     b.ToTable("AuditTrails");
                 });
 
-            modelBuilder.Entity("BoxCommerce.Orders.Domain.Entities.Order", b =>
+            modelBuilder.Entity("BoxCommerce.Warehouse.Domain.Entities.Stock", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -76,9 +81,6 @@ namespace BoxCommerce.Orders.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("CreatedOn")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("LastModifiedBy")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -86,24 +88,18 @@ namespace BoxCommerce.Orders.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset?>("LastModifiedOn")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("OrderNumber")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                    b.Property<int>("StockNumber")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Reason")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<int>("Status")
+                    b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderNumber")
+                    b.HasIndex("Code", "Type")
                         .IsUnique();
 
-                    b.ToTable("Orders");
+                    b.ToTable("Stocks");
                 });
 #pragma warning restore 612, 618
         }

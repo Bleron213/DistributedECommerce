@@ -1,6 +1,7 @@
 ﻿using BoxCommerce.Orders.Application.Common.Infrastructure;
 using BoxCommerce.Orders.Common.Requests;
 using BoxCommerce.Orders.Common.Response;
+using BoxCommerce.Warehouse.ApiClient.Abstractions;
 
 namespace BoxCommerce.Orders.Application.Orders.Commands
 {
@@ -17,16 +18,22 @@ namespace BoxCommerce.Orders.Application.Orders.Commands
         public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, PlaceOrderResponse>
         {
             private readonly IOrderDbContext _boxCommerceOrderDbContext;
+            private readonly IWarehouseApiClient _warehouseApiClient;
 
-            public PlaceOrderCommandHandler(IOrderDbContext boxCommerceOrderDbContext)
+            public PlaceOrderCommandHandler(
+                IOrderDbContext boxCommerceOrderDbContext,
+                IWarehouseApiClient warehouseApiClient
+                )
             {
                 _boxCommerceOrderDbContext = boxCommerceOrderDbContext;
+                _warehouseApiClient = warehouseApiClient;
             }
 
             public async Task<PlaceOrderResponse> Handle(PlaceOrderCommand request, CancellationToken cancellationToken)
             {
-                _boxCommerceOrderDbContext.Orders.Add(new Domain.Entities.Order("shaban", Guid.NewGuid()));
-                await _boxCommerceOrderDbContext.SaveChangesAsync();
+                // Check if vehicle exists
+                //var result1 = await _warehouseApiClient.Stock.CheckInStock();
+
 
                 return new PlaceOrderResponse();
             }

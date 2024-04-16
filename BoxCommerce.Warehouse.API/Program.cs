@@ -1,7 +1,3 @@
-using BoxCommerce.Orders.Application;
-using BoxCommerce.Orders.Application.Common.Infrastructure;
-using BoxCommerce.Orders.Infrastructure;
-using BoxCommerce.Orders.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -14,6 +10,10 @@ using Serilog.Exceptions;
 using BoxCommerce.Warehouse.API.Extensions;
 using BoxCommerce.Warehouse.API.Middleware;
 using BoxCommerce.Warehouse.API.Services;
+using BoxCommerce.Warehouse.Infrastructure.Data;
+using BoxCommerce.Warehouse.Application.Common.Infrastructure;
+using BoxCommerce.Warehouse.Infrastructure;
+using BoxCommerce.Warehouse.Application;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -84,10 +84,11 @@ try
     app.MapControllers();
 
     using var scope = app.Services.CreateScope();
-    var db = scope.ServiceProvider.GetRequiredService<OrderDbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<WarehouseDbContext>();
     await db.Database.MigrateAsync();
 
     var currentUserService = scope.ServiceProvider.GetRequiredService<ICurrentUserService>();
+    await new WarehouseSeeder(db, currentUserService).SeedDefaultData();
 
     app.Run();
 
