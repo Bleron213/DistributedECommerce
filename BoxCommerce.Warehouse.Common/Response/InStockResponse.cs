@@ -10,4 +10,5 @@ namespace BoxCommerce.Warehouse.Common.Response
         public string Type { get; set; }
         public string Message { get; set; }
     }
+
 }

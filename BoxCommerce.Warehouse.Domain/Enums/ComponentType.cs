@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace BoxCommerce.Warehouse.Domain.Enums
 {
-    public enum StockType
+    public enum ComponentType
     {
-        COMPONENT_ENGINE = 1,
-        COMPONENT_CHASSIS = 2,
-        COMPONENT_OPTION_PACK = 3
+        ENGINE = 1,
+        CHASSIS = 2,
+        OPTION_PACK = 3
     }
 }

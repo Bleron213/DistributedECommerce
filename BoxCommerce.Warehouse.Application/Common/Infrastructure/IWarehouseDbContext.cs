@@ -12,6 +12,8 @@ namespace BoxCommerce.Warehouse.Application.Common.Infrastructure
     public interface IWarehouseDbContext
     {
         public DbSet<AuditTrail> AuditTrails { get; set; }
+        public DbSet<Component> Components { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<Stock> Stocks { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
         int SaveChanges();

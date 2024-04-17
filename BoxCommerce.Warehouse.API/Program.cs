@@ -85,6 +85,7 @@ try
 
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<WarehouseDbContext>();
+    await db.Database.EnsureDeletedAsync();
     await db.Database.MigrateAsync();
 
     var currentUserService = scope.ServiceProvider.GetRequiredService<ICurrentUserService>();

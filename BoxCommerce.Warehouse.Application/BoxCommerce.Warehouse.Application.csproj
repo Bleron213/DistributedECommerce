@@ -19,7 +19,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Common\Application\" />
 	  <Folder Include="Stocks\Commands\" />
 	  <Folder Include="Stocks\EventHandlers\" />
 	</ItemGroup>

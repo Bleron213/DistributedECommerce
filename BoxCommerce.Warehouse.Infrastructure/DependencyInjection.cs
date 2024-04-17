@@ -1,4 +1,6 @@
-﻿using BoxCommerce.Warehouse.Application.Common.Infrastructure;
+﻿using BoxCommerce.Warehouse.Application.Common.Application.Services;
+using BoxCommerce.Warehouse.Application.Common.Infrastructure;
+using BoxCommerce.Warehouse.Application.Services;
 using BoxCommerce.Warehouse.Infrastructure.Data;
 using BoxCommerce.Warehouse.Infrastructure.Data.Interceptors;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +18,8 @@ namespace BoxCommerce.Warehouse.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddScoped<IComponentHashingService, ComponentHashingService>();
+
             var connectionString = configuration.GetConnectionString("DatabaseConnection");
 
             services.AddScoped<AuditableEntityInterceptor>();
