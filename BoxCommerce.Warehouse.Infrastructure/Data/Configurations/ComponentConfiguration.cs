@@ -19,6 +19,11 @@ namespace BoxCommerce.Warehouse.Infrastructure.Data.Configurations
             builder.Property(x => x.Code).HasMaxLength(500);
             builder.Property(x => x.SerialCode).HasMaxLength(500);
             builder.HasIndex(x => x.SerialCode).IsUnique();
+
+            builder.HasOne(x => x.Product)
+                .WithMany(x => x.Components)
+                .HasForeignKey(x => x.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 
@@ -30,7 +35,7 @@ namespace BoxCommerce.Warehouse.Infrastructure.Data.Configurations
             builder.Property(x => x.Id).ValueGeneratedNever();
             builder.Property(x => x.Code).HasMaxLength(500);
             builder.Property(x => x.SerialCode).HasMaxLength(500);
-            builder.Property(x => x.PropertiesHash).HasMaxLength(32);
+            builder.Property(x => x.OrderNumber).HasMaxLength(500);
 
             builder.HasIndex(x => x.SerialCode).IsUnique();
 

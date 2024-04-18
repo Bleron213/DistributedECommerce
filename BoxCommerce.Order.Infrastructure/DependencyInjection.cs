@@ -20,13 +20,15 @@ namespace BoxCommerce.Orders.Infrastructure
 
             services.AddScoped<AuditableEntityInterceptor>();
             services.AddScoped<AuditTrailInterceptor>();
+            services.AddScoped<DispatchDomainEventsInterceptor>();
 
             services.AddDbContext<IOrderDbContext, OrderDbContext>((sp, options) =>
             {
                 options.AddInterceptors
                 (
                     sp.GetService<AuditableEntityInterceptor>(),
-                    sp.GetService<AuditTrailInterceptor>()
+                    sp.GetService<AuditTrailInterceptor>(),
+                    sp.GetService<DispatchDomainEventsInterceptor>()
                 );
                 options.UseSqlServer(connectionString);
             });

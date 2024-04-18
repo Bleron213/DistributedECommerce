@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Common\Application\" />
-    <Folder Include="Orders\EventHandlers\" />
     <Folder Include="Orders\Queries\" />
     <Folder Include="Products\Commands\" />
     <Folder Include="Products\EventHandlers\" />
@@ -19,9 +18,11 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BoxCommerce.Domain.Errors\BoxCommerce.Orders.Domain.Errors.csproj" />
     <ProjectReference Include="..\BoxCommerce.Order.Common\BoxCommerce.Orders.Common.csproj" />
     <ProjectReference Include="..\BoxCommerce.Order.Domain\BoxCommerce.Orders.Domain.csproj" />
     <ProjectReference Include="..\BoxCommerce.Warehouse.ApiClient\BoxCommerce.Warehouse.ApiClient.csproj" />

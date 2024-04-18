@@ -10,4 +10,9 @@
     <PackageReference Include="MediatR" Version="12.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BoxCommerce.Domain.Errors\BoxCommerce.Orders.Domain.Errors.csproj" />
+    <ProjectReference Include="..\BoxCommerce.Utils\BoxCommerce.Utils.csproj" />
+  </ItemGroup>
+
 </Project>

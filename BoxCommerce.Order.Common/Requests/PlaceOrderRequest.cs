@@ -12,7 +12,6 @@ namespace BoxCommerce.Orders.Common.Requests
         public class Component
         {
             public string Code { get; set; }
-            public string Type { get; set; }
         }
     }
 

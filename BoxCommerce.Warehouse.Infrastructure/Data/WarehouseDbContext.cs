@@ -15,7 +15,6 @@ namespace BoxCommerce.Warehouse.Infrastructure.Data
         public DbSet<AuditTrail> AuditTrails { get; set; }
         public DbSet<Component> Components { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Stock> Stocks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

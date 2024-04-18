@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BoxCommerce.Orders.Domain.Common;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BoxCommerce.Orders.Domain.Entities
 {
@@ -11,5 +13,25 @@ namespace BoxCommerce.Orders.Domain.Entities
         public DateTimeOffset? LastModifiedOn { get; set; }
         [MaxLength(50)]
         public string? LastModifiedBy { get; set; }
+
+        private readonly List<BaseEvent> _domainEvents = new();
+
+        [NotMapped]
+        public IReadOnlyCollection<BaseEvent> DomainEvents => _domainEvents.AsReadOnly();
+
+        public void AddDomainEvent(BaseEvent domainEvent)
+        {
+            _domainEvents.Add(domainEvent);
+        }
+
+        public void RemoveDomainEvent(BaseEvent domainEvent)
+        {
+            _domainEvents.Remove(domainEvent);
+        }
+
+        public void ClearDomainEvents()
+        {
+            _domainEvents.Clear();
+        }
     }
 }

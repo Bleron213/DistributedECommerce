@@ -19,5 +19,5 @@ namespace BoxCommerce.Orders.Infrastructure.Data.Configurations
 
             builder.HasIndex(x => x.OrderNumber).IsUnique();
         }
-    }
+    }    
 }

@@ -1,6 +1,7 @@
 ﻿using BoxCommerce.Warehouse.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,9 @@ namespace BoxCommerce.Warehouse.Application.Common.Infrastructure
         public DbSet<AuditTrail> AuditTrails { get; set; }
         public DbSet<Component> Components { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Stock> Stocks { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
         int SaveChanges();
         ChangeTracker ChangeTracker { get; }
+        DatabaseFacade Database { get; }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace BoxCommerce.Warehouse.Infrastructure.Migrations
+namespace BoxCommerce.Orders.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration
@@ -30,33 +30,14 @@ namespace BoxCommerce.Warehouse.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Components",
+                name: "Orders",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false),
-                    SerialCode = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    ComponentStatus = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    LastModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LastModifiedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Components", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    SerialCode = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    PropertiesHash = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
+                    OrderNumber = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -64,16 +45,16 @@ namespace BoxCommerce.Warehouse.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Stocks",
+                name: "OrderProduct",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -81,19 +62,24 @@ namespace BoxCommerce.Warehouse.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Stocks", x => x.Id);
+                    table.PrimaryKey("PK_OrderProduct", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderProduct_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Components_SerialCode",
-                table: "Components",
-                column: "SerialCode",
-                unique: true);
+                name: "IX_OrderProduct_OrderId",
+                table: "OrderProduct",
+                column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_SerialCode",
-                table: "Products",
-                column: "SerialCode",
+                name: "IX_Orders_OrderNumber",
+                table: "Orders",
+                column: "OrderNumber",
                 unique: true);
         }
 
@@ -104,13 +90,10 @@ namespace BoxCommerce.Warehouse.Infrastructure.Migrations
                 name: "AuditTrails");
 
             migrationBuilder.DropTable(
-                name: "Components");
+                name: "OrderProduct");
 
             migrationBuilder.DropTable(
-                name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "Stocks");
+                name: "Orders");
         }
     }
 }

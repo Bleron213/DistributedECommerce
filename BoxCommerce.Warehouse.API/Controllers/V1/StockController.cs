@@ -1,6 +1,10 @@
-﻿using BoxCommerce.Warehouse.Application.Stocks.Queries;
+﻿using BoxCommerce.Orders.Application.Orders.Commands;
+using BoxCommerce.Utils.Errors;
+using BoxCommerce.Warehouse.Application.Stocks.Queries;
 using BoxCommerce.Warehouse.Common.Request;
+using BoxCommerce.Warehouse.Common.Response;
 using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BoxCommerce.Warehouse.API.Controllers.V1
@@ -21,7 +25,9 @@ namespace BoxCommerce.Warehouse.API.Controllers.V1
 
 
         [HttpPost("CheckInStock")]
-        public async Task<IActionResult> CheckInStock(VehicleInStockRequest request)
+        [ProducesResponseType(200, Type = typeof(InStockResponse))]
+        [ProducesResponseType(400, Type = typeof(ErrorDetails))]
+        public async Task<IActionResult> CheckInStock(InStockRequest request)
         {
             _logger.LogInformation("Entering method {method}", nameof(CheckInStock));
 
@@ -30,6 +36,21 @@ namespace BoxCommerce.Warehouse.API.Controllers.V1
             _logger.LogInformation("leaving method {method}", nameof(CheckInStock));
 
             return Ok(result);
+        }
+                
+        
+        [HttpPost("MarkProductInOrder")]
+        [ProducesResponseType(202)]
+        [ProducesResponseType(400, Type = typeof(ErrorDetails))]
+        public async Task<IActionResult> MarkProductInOrder(MarkProductInOrderRequest request)
+        {
+            _logger.LogInformation("Entering method {method}", nameof(MarkProductInOrder));
+
+            await _mediator.Send(new MarkProductInOrderCommand(request));
+
+            _logger.LogInformation("leaving method {method}", nameof(MarkProductInOrder));
+
+            return Accepted();
         }
 
 

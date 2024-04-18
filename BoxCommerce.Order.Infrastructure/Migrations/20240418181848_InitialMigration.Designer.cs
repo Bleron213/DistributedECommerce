@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BoxCommerce.Orders.Infrastructure.Data.Migrations
+namespace BoxCommerce.Orders.Infrastructure.Migrations
 {
     [DbContext(typeof(OrderDbContext))]
-    [Migration("20240414201758_InitialMigration")]
+    [Migration("20240418181848_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -104,6 +104,56 @@ namespace BoxCommerce.Orders.Infrastructure.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("BoxCommerce.Orders.Domain.Entities.OrderProduct", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTimeOffset?>("LastModifiedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderProduct");
+                });
+
+            modelBuilder.Entity("BoxCommerce.Orders.Domain.Entities.OrderProduct", b =>
+                {
+                    b.HasOne("BoxCommerce.Orders.Domain.Entities.Order", "Order")
+                        .WithMany("OrderedProducts")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("BoxCommerce.Orders.Domain.Entities.Order", b =>
+                {
+                    b.Navigation("OrderedProducts");
                 });
 #pragma warning restore 612, 618
         }

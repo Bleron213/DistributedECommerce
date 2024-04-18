@@ -4,21 +4,26 @@ using BoxCommerce.Warehouse.Application.Services;
 using BoxCommerce.Warehouse.Common.Request;
 using BoxCommerce.Warehouse.Common.Response;
 using BoxCommerce.Warehouse.Domain.Entities;
+using Microsoft.AspNetCore.Http.Timeouts;
+using Microsoft.Data.SqlClient;
+using System.Data;
+using Dapper;
+using BoxCommerce.Warehouse.Domain.Enums;
 
 namespace BoxCommerce.Warehouse.Application.Stocks.Queries
 {
-    public class CheckInStockQuery : IRequest<List<InStockResponse>>
+    public class CheckInStockQuery : IRequest<InStockResponse>
     {
-        public CheckInStockQuery(VehicleInStockRequest request)
+        public CheckInStockQuery(InStockRequest request)
         {
             ArgumentNullException.ThrowIfNull(request);
-            Request = request;
+            Payload = request;
         }
 
-        public VehicleInStockRequest Request { get; }
+        public InStockRequest Payload { get; }
     }
 
-    public class CheckInStockQueryHandler : IRequestHandler<CheckInStockQuery, List<InStockResponse>>
+    public class CheckInStockQueryHandler : IRequestHandler<CheckInStockQuery, InStockResponse>
     {
         private readonly IWarehouseDbContext _warehouseDbContext;
         private readonly IComponentHashingService _componentHashingService;
@@ -32,27 +37,36 @@ namespace BoxCommerce.Warehouse.Application.Stocks.Queries
             _componentHashingService = componentHashingService;
         }
 
-        public async Task<List<InStockResponse>> Handle(CheckInStockQuery request, CancellationToken cancellationToken)
+        public async Task<InStockResponse> Handle(CheckInStockQuery request, CancellationToken cancellationToken)
         {
-            var productCode = request.Request.ProductCode;
-            var components = request.Request.CustomComponents;
+            var dbConnectionString = _warehouseDbContext.Database.GetConnectionString();
 
-            // Check if a Pre-assembled vehicle is ready for shipping
-            var componentsHash = _componentHashingService.HashComponentCodes(request.Request.ProductCode, request.Request.CustomComponents.Select(x => x.Code).ToList());
-            var productAvailable = await _warehouseDbContext.Products.AnyAsync(x => 
-                x.Code == productCode && 
-                x.PropertiesHash == componentsHash && 
-                (x.Status == Domain.Enums.ProductStatus.ASSEMBLED || x.Status == Domain.Enums.ProductStatus.CANCELLED));
+            using IDbConnection db = new SqlConnection(dbConnectionString);
 
-            if (productAvailable)
+            // First case is when a vehicle has status CANCELLED and all its components are ASSEMBLED
+            // This means that this is a pre-assembled vehicle that was returned from the client. It is assumed to not have any defect
+            var product = await db.QueryFirstOrDefaultAsync<Product>(@"
+                select * from Products p
+                where p.Code = @ProductCode and p.OrderNumber is null and p.Status = @ProductStatus
+                    AND NOT EXISTS (
+                        SELECT 1 
+                        FROM Components c
+                        WHERE c.ProductID = p.Id
+                            AND c.Status <> @ComponentStatus -- All components must have this status
+                    );
+                ", new { ProductCode = request.Payload.ProductCode, ProductStatus = ProductStatus.CANCELLED, ComponentStatus = ComponentStatus.ASSEMBLED });
+
+            if(product != null)
             {
-                return new List<InStockResponse>
+                return new InStockResponse()
                 {
-
+                    ProductId = product.Id.ToString(),
+                    Code = product.Code,
+                    Status = InStockResponse.StockStatus.IN_STOCK,
                 };
             }
 
-
+            return new InStockResponse();
         }
     }
 }

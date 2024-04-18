@@ -16,6 +16,8 @@ using Serilog.Exceptions;
 using BoxCommerce.Orders.API.Middleware;
 using BoxCommerce.Warehouse.ApiClient.Configurations;
 using BoxCommerce.Warehouse.ApiClient.Extensions;
+using System.Text.Json.Serialization;
+using Microsoft.Extensions.Options;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -39,7 +41,10 @@ try
             .ReadFrom.Configuration(ctx.Configuration),
         preserveStaticLogger: true);
 
-    builder.Services.AddControllers();
+    builder.Services.AddControllers().AddJsonOptions(o =>
+    {
+        o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();

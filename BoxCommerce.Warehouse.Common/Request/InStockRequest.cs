@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BoxCommerce.Warehouse.Common.Request
 {
-    public class VehicleInStockRequest
+    public class InStockRequest
     {
         public string ProductCode { get; set; }
         public List<ComponentStockRequest> CustomComponents { get; set; } = new List<ComponentStockRequest>();
@@ -12,7 +12,6 @@ namespace BoxCommerce.Warehouse.Common.Request
         public class ComponentStockRequest
         {
             public string Code { get; set; }
-            public string Type { get; set; }
         }
     }
 }
