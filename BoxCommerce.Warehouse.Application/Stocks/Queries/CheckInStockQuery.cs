@@ -1,10 +1,7 @@
-﻿using BoxCommerce.Warehouse.Application.Common.Application.Services;
-using BoxCommerce.Warehouse.Application.Common.Infrastructure;
-using BoxCommerce.Warehouse.Application.Services;
+﻿using BoxCommerce.Warehouse.Application.Common.Infrastructure;
 using BoxCommerce.Warehouse.Common.Request;
 using BoxCommerce.Warehouse.Common.Response;
 using BoxCommerce.Warehouse.Domain.Entities;
-using Microsoft.AspNetCore.Http.Timeouts;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using Dapper;
@@ -26,15 +23,12 @@ namespace BoxCommerce.Warehouse.Application.Stocks.Queries
     public class CheckInStockQueryHandler : IRequestHandler<CheckInStockQuery, InStockResponse>
     {
         private readonly IWarehouseDbContext _warehouseDbContext;
-        private readonly IComponentHashingService _componentHashingService;
 
         public CheckInStockQueryHandler(
-            IWarehouseDbContext warehouseDbContext,
-            IComponentHashingService componentHashingService
+            IWarehouseDbContext warehouseDbContext
             )
         {
             _warehouseDbContext = warehouseDbContext;
-            _componentHashingService = componentHashingService;
         }
 
         public async Task<InStockResponse> Handle(CheckInStockQuery request, CancellationToken cancellationToken)

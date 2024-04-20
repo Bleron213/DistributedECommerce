@@ -1,5 +1,4 @@
 ﻿using BoxCommerce.Warehouse.Application.Common.Infrastructure;
-using BoxCommerce.Warehouse.Application.Services;
 using BoxCommerce.Warehouse.Domain.Entities;
 using BoxCommerce.Warehouse.Domain.Enums;
 using BoxCommerce.Warehouse.Infrastructure.Data;

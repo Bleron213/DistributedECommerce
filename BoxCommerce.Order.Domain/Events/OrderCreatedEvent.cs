@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace BoxCommerce.Orders.Domain.Events
 {
-    public class OrderCreatedReorderProductEvent : BaseEvent
+    public class OrderCreatedEvent : BaseEvent
     {
-        public OrderCreatedReorderProductEvent(Order order)
+        public OrderCreatedEvent(Order order)
         {
             Order = order;
         }

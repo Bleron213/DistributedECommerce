@@ -52,6 +52,7 @@ try
     builder.Services.AddApplicationServices();
     builder.Services.AddAPIServices();
     builder.Services.AddHttpContextAccessor();
+    builder.Services.AddMessageQueue(builder.Configuration);
 
     var warehouseApiClientConfiguration = new WarehouseApiClientConfiguration();
     builder.Configuration.Bind("WarehouseApiClientConfiguration", warehouseApiClientConfiguration);
@@ -97,6 +98,7 @@ try
 
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<OrderDbContext>();
+    await db.Database.EnsureDeletedAsync();
     await db.Database.MigrateAsync();
 
     var currentUserService = scope.ServiceProvider.GetRequiredService<ICurrentUserService>();

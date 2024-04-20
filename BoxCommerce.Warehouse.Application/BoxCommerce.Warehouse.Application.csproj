@@ -14,14 +14,21 @@
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.5" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.4" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\BoxCommerce.Order.Common\BoxCommerce.Orders.Common.csproj" />
 		<ProjectReference Include="..\BoxCommerce.Warehouse.Common\BoxCommerce.Warehouse.Common.csproj" />
 		<ProjectReference Include="..\BoxCommerce.Warehouse.Domain\BoxCommerce.Warehouse.Domain.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Common\Application\Services\" />
+	  <Folder Include="Product\Commands\" />
+	  <Folder Include="Product\Queries\" />
+	  <Folder Include="Services\" />
 	  <Folder Include="Stocks\Commands\" />
 	  <Folder Include="Stocks\EventHandlers\" />
 	</ItemGroup>

@@ -14,6 +14,8 @@ using BoxCommerce.Warehouse.Infrastructure.Data;
 using BoxCommerce.Warehouse.Application.Common.Infrastructure;
 using BoxCommerce.Warehouse.Infrastructure;
 using BoxCommerce.Warehouse.Application;
+using BoxCommerce.Warehouse.Application.BackgroundServices;
+using BoxCommerce.Warehouse.Application.Configurations;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -44,6 +46,11 @@ try
     builder.Services.AddInfrastructureServices(builder.Configuration);
     builder.Services.AddApplicationServices();
     builder.Services.AddAPIServices();
+
+    var rabbitMqConfiguration = new RabbitMqConfiguration();
+    builder.Configuration.Bind("RabbitMqConfiguration", rabbitMqConfiguration);
+    builder.Services.AddSingleton(rabbitMqConfiguration);
+    builder.Services.AddHostedService<OrderCreatedConsumer>();
 
     builder.Services
         .AddApiVersioning(options =>

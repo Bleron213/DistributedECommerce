@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using MediatR;
 using FluentValidation;
 using BoxCommerce.Orders.Application.Common.Behaviours;
+using Microsoft.Extensions.Configuration;
 
 namespace BoxCommerce.Orders.Application
 {

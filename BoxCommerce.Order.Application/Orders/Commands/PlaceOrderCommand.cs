@@ -51,9 +51,8 @@ namespace BoxCommerce.Orders.Application.Orders.Commands
                 if(stockResponse.Data.Status == Warehouse.Common.Response.InStockResponse.StockStatus.IN_STOCK)
                 {
                     var order = new Domain.Entities.Order(Guid.Parse(_currentUserService.UserId));
-                    order.AddOrderProduct(new Domain.Entities.OrderProduct(stockResponse.Data.ProductId));
-                    order.OrderReady();
-                    order.AddDomainEvent(new OrderCreatedReorderProductEvent(order));
+                    order.AddOrderProduct(new Domain.Entities.OrderProduct(stockResponse.Data.ProductId, stockResponse.Data.Code, request.Payload.Components.Select(x => x.Code).ToList()));
+                    order.AddDomainEvent(new OrderCreatedEvent(order));
                     await _orderDbContext.Orders.AddAsync(order);
                     // Would be a good idea to have a try/catch block that regenerates the ordernumber if it already exists. 
                     await _orderDbContext.SaveChangesAsync();
@@ -66,13 +65,16 @@ namespace BoxCommerce.Orders.Application.Orders.Commands
                 } else
                 {
                     var order = new Domain.Entities.Order(Guid.Parse(_currentUserService.UserId));
-                    //order.AddOrderProduct(new Domain.Entities.OrderProduct(s))
+                    order.AddOrderProduct(new Domain.Entities.OrderProduct(stockResponse.Data.Code, request.Payload.Components.Select(x => x.Code).ToList()));
+                    order.AddDomainEvent(new OrderCreatedEvent(order));
+                    // Would be a good idea to have a try/catch block that regenerates the ordernumber if it already exists. 
+                    await _orderDbContext.SaveChangesAsync();
+                    return new PlaceOrderResponse
+                    {
+                        OrderId = order.Id,
+                        OrderNumber = order.OrderNumber
+                    };
                 }
-
-
-
-
-                return new PlaceOrderResponse();
             }
         }
 
