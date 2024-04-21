@@ -38,21 +38,6 @@ namespace DistributedECommerce.Warehouse.API.Controllers.V1
             return Ok(result);
         }
                 
-        
-        [HttpPost("MarkProductInOrder")]
-        [ProducesResponseType(202)]
-        [ProducesResponseType(400, Type = typeof(ErrorDetails))]
-        public async Task<IActionResult> MarkProductInOrder(MarkProductInOrderRequest request)
-        {
-            _logger.LogInformation("Entering method {method}", nameof(MarkProductInOrder));
-
-            await _mediator.Send(new MarkProductInOrderCommand(request));
-
-            _logger.LogInformation("leaving method {method}", nameof(MarkProductInOrder));
-
-            return Accepted();
-        }
-
-
+      
     }
 }

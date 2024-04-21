@@ -148,13 +148,13 @@ select
 	END as ComponentStatus
 from cteValues
 left join Components c on c.Code = cteValues.componentCode and c.Status = @Status and c.ProductId is null
-", new { Status = ComponentStatus.READY });
+", new { Status = ComponentStatus.READY_TO_ASSEMBLE });
 
             foreach (var component in componentStatuses)
             {
                 if (component.ComponentStatus == "NOT_IN_STOCK")
                 {
-                    product.Components.Add(new Component(component.ComponentCode));
+                    product.Components.Add(new Domain.Entities.Component(component.ComponentCode));
                 }
             }
 

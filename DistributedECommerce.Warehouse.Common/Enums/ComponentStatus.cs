@@ -1,4 +1,8 @@
-﻿namespace DistributedECommerce.Warehouse.Domain.Enums
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace DistributedECommerce.Warehouse.Common.Enums
 {
     public enum ComponentStatus
     {

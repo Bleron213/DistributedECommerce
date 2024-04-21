@@ -13,7 +13,7 @@ namespace DistributedECommerce.Warehouse.Application.Common.Infrastructure
     public interface IWarehouseDbContext
     {
         public DbSet<AuditTrail> AuditTrails { get; set; }
-        public DbSet<Component> Components { get; set; }
+        public DbSet<DistributedECommerce.Warehouse.Domain.Entities.Component> Components { get; set; }
         public DbSet<DistributedECommerce.Warehouse.Domain.Entities.Product> Products { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
         int SaveChanges();

@@ -97,7 +97,7 @@ namespace DistributedECommerce.Warehouse.API.Services
             _context.Components
                 .Where(x => new List<Guid> { ELECTRIC_MOTOR_60_KWH.Id,TUBULAR_SPACE_FRAME.Id, CITY_URBAN_PACK.Id }.Contains(x.Id))
                 .ExecuteUpdate(setters => setters
-                    .SetProperty(b => b.Status, ComponentStatus.READY)                    
+                    .SetProperty(b => b.Status, ComponentStatus.READY_TO_ASSEMBLE)                    
                     );
 
             // ------------------------------------------------------------------- // 

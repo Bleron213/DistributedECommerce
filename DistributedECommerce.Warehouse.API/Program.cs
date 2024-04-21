@@ -46,12 +46,14 @@ try
     builder.Services.AddInfrastructureServices(builder.Configuration);
     builder.Services.AddApplicationServices();
     builder.Services.AddAPIServices();
+    builder.Services.AddMessageQueue(builder.Configuration);
 
     var rabbitMqConfiguration = new RabbitMqConfiguration();
     builder.Configuration.Bind("RabbitMqConfiguration", rabbitMqConfiguration);
     builder.Services.AddSingleton(rabbitMqConfiguration);
     builder.Services.AddHostedService<OrderCreatedConsumer>();
     builder.Services.AddHostedService<OrderCanceledConsumer>();
+    builder.Services.AddHostedService<ComponentStateChangedConsumer>();
 
     builder.Services
         .AddApiVersioning(options =>

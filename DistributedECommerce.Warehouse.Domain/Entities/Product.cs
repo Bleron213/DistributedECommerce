@@ -25,19 +25,37 @@ namespace DistributedECommerce.Warehouse.Domain.Entities
         #region Navigation
         public List<Component> Components { get; private set; } = new();
 
+        public void ProductStatusUpdateCheck()
+        {
+            var componentsAllReady = Components.All(x => x.Status == ComponentStatus.READY_TO_ASSEMBLE);
+            if (componentsAllReady)
+            {
+                Status = ProductStatus.READY_TO_ASSEMBLE;
+            }
+
+            var componentsAssembled = Components.All(x => x.Status == ComponentStatus.ASSEMBLED);
+            if (componentsAssembled) 
+            {
+                Status = ProductStatus.ASSEMBLED;
+            }
+        }
+
         public void OrderCanceled()
         {
             OrderNumber = null;
             switch (Status)
             {
                 case ProductStatus.IN_PROCESS:
+                case ProductStatus.READY_TO_ASSEMBLE:
+                case ProductStatus.ASSEMBLED:
                     Status = ProductStatus.CANCELLED;
                     break;
+                
             }
 
             foreach (var item in Components)
             {
-                item.OrderCanceled();
+                item.ComponentCanceled();
             }
         }
 

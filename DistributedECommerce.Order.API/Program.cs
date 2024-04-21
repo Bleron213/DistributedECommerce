@@ -18,6 +18,7 @@ using DistributedECommerce.Warehouse.ApiClient.Configurations;
 using DistributedECommerce.Warehouse.ApiClient.Extensions;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.Options;
+using DistributedECommerce.Orders.Application.BackgroundServices;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -57,6 +58,7 @@ try
     var warehouseApiClientConfiguration = new WarehouseApiClientConfiguration();
     builder.Configuration.Bind("WarehouseApiClientConfiguration", warehouseApiClientConfiguration);
     builder.Services.AddWarehouseApiClient(warehouseApiClientConfiguration);
+    builder.Services.AddHostedService<ProductUpdateConsumer>();
 
     builder.Services
         .AddApiVersioning(options =>

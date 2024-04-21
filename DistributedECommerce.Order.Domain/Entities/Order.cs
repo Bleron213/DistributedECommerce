@@ -47,7 +47,6 @@ namespace DistributedECommerce.Orders.Domain.Entities
             switch (Status)
             {
                 case OrderStatus.IN_PROCESS:
-                case OrderStatus.DELIVERED:
                     Status = OrderStatus.READY;
                     break;
                 default:
@@ -80,6 +79,21 @@ namespace DistributedECommerce.Orders.Domain.Entities
             }
 
            return new string(orderNumber);
+        }
+
+        public void ProductStateChanged()
+        {
+            var productsReady = OrderedProducts.All(x => x.Status == ProductStatus.READY);
+            if (productsReady)
+            {
+                OrderReady();
+            }
+
+            var productsCancelled = OrderedProducts.All(x => x.Status == ProductStatus.CANCELLED);
+            if (productsCancelled)
+            {
+                CancelOrder("Cancelled by Third Party");
+            }
         }
     }
 }

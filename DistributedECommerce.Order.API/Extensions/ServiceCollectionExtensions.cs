@@ -18,6 +18,7 @@ namespace DistributedECommerce.Orders.API.Extensions
         {
             var rabbitMqConfiguration = new RabbitMqConfiguration();
             configuration.Bind("RabbitMqConfiguration", rabbitMqConfiguration);
+            services.AddSingleton(rabbitMqConfiguration);
             services.AddScoped<IMessageSender>(provider =>
             {
                 return new RabbitMqMessageSender(rabbitMqConfiguration);
