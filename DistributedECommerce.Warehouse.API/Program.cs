@@ -7,15 +7,15 @@ using Serilog.Exceptions.Destructurers;
 using Serilog.Exceptions.EntityFrameworkCore.Destructurers;
 using Serilog.Exceptions.SqlServer.Destructurers;
 using Serilog.Exceptions;
-using BoxCommerce.Warehouse.API.Extensions;
-using BoxCommerce.Warehouse.API.Middleware;
-using BoxCommerce.Warehouse.API.Services;
-using BoxCommerce.Warehouse.Infrastructure.Data;
-using BoxCommerce.Warehouse.Application.Common.Infrastructure;
-using BoxCommerce.Warehouse.Infrastructure;
-using BoxCommerce.Warehouse.Application;
-using BoxCommerce.Warehouse.Application.BackgroundServices;
-using BoxCommerce.Warehouse.Application.Configurations;
+using DistributedECommerce.Warehouse.API.Extensions;
+using DistributedECommerce.Warehouse.API.Middleware;
+using DistributedECommerce.Warehouse.API.Services;
+using DistributedECommerce.Warehouse.Infrastructure.Data;
+using DistributedECommerce.Warehouse.Application.Common.Infrastructure;
+using DistributedECommerce.Warehouse.Infrastructure;
+using DistributedECommerce.Warehouse.Application;
+using DistributedECommerce.Warehouse.Application.BackgroundServices;
+using DistributedECommerce.Warehouse.Application.Configurations;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()

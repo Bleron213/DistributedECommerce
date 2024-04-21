@@ -1,4 +1,4 @@
-﻿namespace BoxCommerce.Warehouse.Domain.Enums
+﻿namespace DistributedECommerce.Warehouse.Domain.Enums
 {
     public enum ComponentStatus
     {

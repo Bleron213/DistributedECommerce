@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BoxCommerce.Warehouse.Common.Request
+namespace DistributedECommerce.Warehouse.Common.Request
 {
     public class InStockRequest
     {

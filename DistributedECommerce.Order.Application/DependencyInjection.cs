@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using FluentValidation;
-using BoxCommerce.Orders.Application.Common.Behaviours;
+using DistributedECommerce.Orders.Application.Common.Behaviours;
 using Microsoft.Extensions.Configuration;
 
-namespace BoxCommerce.Orders.Application
+namespace DistributedECommerce.Orders.Application
 {
     public static class DependencyInjection
     {

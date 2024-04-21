@@ -1,11 +1,11 @@
-﻿using BoxCommerce.Warehouse.Domain.Enums;
+﻿using DistributedECommerce.Warehouse.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Warehouse.Domain.Entities
+namespace DistributedECommerce.Warehouse.Domain.Entities
 {
     public class AuditTrail
     {

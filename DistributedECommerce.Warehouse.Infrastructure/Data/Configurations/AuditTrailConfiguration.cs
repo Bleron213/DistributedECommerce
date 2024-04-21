@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BoxCommerce.Warehouse.Domain.Entities;
+using DistributedECommerce.Warehouse.Domain.Entities;
 
 public class AuditTrailConfiguration : IEntityTypeConfiguration<AuditTrail>
 {

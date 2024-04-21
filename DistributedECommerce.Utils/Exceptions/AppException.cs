@@ -1,11 +1,11 @@
-﻿using BoxCommerce.Utils.Errors;
+﻿using DistributedECommerce.Utils.Errors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Utils.Exceptions
+namespace DistributedECommerce.Utils.Exceptions
 {
     public class AppException : Exception
     {

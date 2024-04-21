@@ -1,7 +1,7 @@
-﻿using BoxCommerce.Utils.Exceptions;
-using BoxCommerce.Warehouse.Domain.Enums;
+﻿using DistributedECommerce.Utils.Exceptions;
+using DistributedECommerce.Warehouse.Domain.Enums;
 
-namespace BoxCommerce.Warehouse.Domain.Entities
+namespace DistributedECommerce.Warehouse.Domain.Entities
 {
     public class Product : BaseEntity
     {

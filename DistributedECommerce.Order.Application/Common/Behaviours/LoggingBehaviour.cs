@@ -1,8 +1,8 @@
-﻿using BoxCommerce.Orders.Application.Common.Infrastructure;
+﻿using DistributedECommerce.Orders.Application.Common.Infrastructure;
 using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
 
-namespace BoxCommerce.Orders.Application.Common.Behaviours;
+namespace DistributedECommerce.Orders.Application.Common.Behaviours;
 
 public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where TRequest : notnull
 {

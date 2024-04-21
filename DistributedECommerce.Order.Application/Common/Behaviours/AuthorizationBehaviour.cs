@@ -1,4 +1,4 @@
-﻿namespace BoxCommerce.Orders.Application.Common.Behaviours;
+﻿namespace DistributedECommerce.Orders.Application.Common.Behaviours;
 
 public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {

@@ -1,7 +1,7 @@
-﻿using BoxCommerce.Warehouse.ApiClient.Abstractions;
-using BoxCommerce.Warehouse.ApiClient.Abstractions.Requests;
+﻿using DistributedECommerce.Warehouse.ApiClient.Abstractions;
+using DistributedECommerce.Warehouse.ApiClient.Abstractions.Requests;
 
-namespace BoxCommerce.Warehouse.ApiClient.Clients
+namespace DistributedECommerce.Warehouse.ApiClient.Clients
 {
     public class WarehouseApiClient : IWarehouseApiClient
     {

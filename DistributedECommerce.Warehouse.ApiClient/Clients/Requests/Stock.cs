@@ -1,18 +1,18 @@
-﻿using BoxCommerce.Utils;
-using BoxCommerce.Utils.Errors.CoreErrors;
-using BoxCommerce.Utils.Errors;
-using BoxCommerce.Utils.Exceptions;
-using BoxCommerce.Warehouse.ApiClient.Abstractions.Requests;
+﻿using DistributedECommerce.Utils;
+using DistributedECommerce.Utils.Errors.CoreErrors;
+using DistributedECommerce.Utils.Errors;
+using DistributedECommerce.Utils.Exceptions;
+using DistributedECommerce.Warehouse.ApiClient.Abstractions.Requests;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using BoxCommerce.Warehouse.Common.Request;
-using BoxCommerce.Warehouse.Common.Response;
+using DistributedECommerce.Warehouse.Common.Request;
+using DistributedECommerce.Warehouse.Common.Response;
 
-namespace BoxCommerce.Warehouse.ApiClient.Clients.Requests
+namespace DistributedECommerce.Warehouse.ApiClient.Clients.Requests
 {
     public class Stock : IStock
     {

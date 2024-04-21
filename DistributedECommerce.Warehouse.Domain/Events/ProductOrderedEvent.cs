@@ -1,12 +1,12 @@
-﻿using BoxCommerce.Warehouse.Domain.Common;
-using BoxCommerce.Warehouse.Domain.Entities;
+﻿using DistributedECommerce.Warehouse.Domain.Common;
+using DistributedECommerce.Warehouse.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Warehouse.Domain.Events
+namespace DistributedECommerce.Warehouse.Domain.Events
 {
     public class ProductOrderedEvent : BaseEvent
     {

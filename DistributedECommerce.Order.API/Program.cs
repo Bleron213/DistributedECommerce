@@ -1,9 +1,9 @@
-using BoxCommerce.Orders.API.Extensions;
-using BoxCommerce.Orders.API.Services;
-using BoxCommerce.Orders.Application;
-using BoxCommerce.Orders.Application.Common.Infrastructure;
-using BoxCommerce.Orders.Infrastructure;
-using BoxCommerce.Orders.Infrastructure.Data;
+using DistributedECommerce.Orders.API.Extensions;
+using DistributedECommerce.Orders.API.Services;
+using DistributedECommerce.Orders.Application;
+using DistributedECommerce.Orders.Application.Common.Infrastructure;
+using DistributedECommerce.Orders.Infrastructure;
+using DistributedECommerce.Orders.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -13,9 +13,9 @@ using Serilog.Exceptions.Destructurers;
 using Serilog.Exceptions.EntityFrameworkCore.Destructurers;
 using Serilog.Exceptions.SqlServer.Destructurers;
 using Serilog.Exceptions;
-using BoxCommerce.Orders.API.Middleware;
-using BoxCommerce.Warehouse.ApiClient.Configurations;
-using BoxCommerce.Warehouse.ApiClient.Extensions;
+using DistributedECommerce.Orders.API.Middleware;
+using DistributedECommerce.Warehouse.ApiClient.Configurations;
+using DistributedECommerce.Warehouse.ApiClient.Extensions;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.Options;
 

@@ -1,7 +1,7 @@
-﻿using BoxCommerce.Warehouse.API.Services;
-using BoxCommerce.Warehouse.Application.Common.Infrastructure;
+﻿using DistributedECommerce.Warehouse.API.Services;
+using DistributedECommerce.Warehouse.Application.Common.Infrastructure;
 
-namespace BoxCommerce.Warehouse.API.Extensions
+namespace DistributedECommerce.Warehouse.API.Extensions
 {
     public static class ServiceCollectionExtensions
     {

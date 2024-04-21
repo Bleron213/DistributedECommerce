@@ -1,12 +1,12 @@
-﻿using BoxCommerce.Orders.Domain.Common;
-using BoxCommerce.Orders.Domain.Entities;
+﻿using DistributedECommerce.Orders.Domain.Common;
+using DistributedECommerce.Orders.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Orders.Domain.Events
+namespace DistributedECommerce.Orders.Domain.Events
 {
     public class OrderCreatedEvent : BaseEvent
     {

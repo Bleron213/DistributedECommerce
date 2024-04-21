@@ -1,9 +1,9 @@
-﻿using BoxCommerce.Orders.Application.Common.Infrastructure;
-using BoxCommerce.Orders.Common.Messages;
-using BoxCommerce.Orders.Domain.Errors.Order;
-using BoxCommerce.Orders.Domain.Events;
-using BoxCommerce.Utils.Exceptions;
-using BoxCommerce.Warehouse.ApiClient.Abstractions;
+﻿using DistributedECommerce.Orders.Application.Common.Infrastructure;
+using DistributedECommerce.Orders.Common.Messages;
+using DistributedECommerce.Orders.Domain.Errors.Order;
+using DistributedECommerce.Orders.Domain.Events;
+using DistributedECommerce.Utils.Exceptions;
+using DistributedECommerce.Warehouse.ApiClient.Abstractions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
@@ -11,9 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static BoxCommerce.Orders.Common.Messages.OrderCreatedMessageRequest;
+using static DistributedECommerce.Orders.Common.Messages.OrderCreatedMessageRequest;
 
-namespace BoxCommerce.Orders.Application.Orders.EventHandlers
+namespace DistributedECommerce.Orders.Application.Orders.EventHandlers
 {
     public class OrderCreatedEventHandler : INotificationHandler<OrderCreatedEvent>
     {

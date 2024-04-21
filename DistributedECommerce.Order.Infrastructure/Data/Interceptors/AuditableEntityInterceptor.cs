@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BoxCommerce.Orders.Application.Common.Infrastructure;
-using BoxCommerce.Orders.Domain.Entities;
+using DistributedECommerce.Orders.Application.Common.Infrastructure;
+using DistributedECommerce.Orders.Domain.Entities;
 
-namespace BoxCommerce.Orders.Infrastructure.Data.Interceptors;
+namespace DistributedECommerce.Orders.Infrastructure.Data.Interceptors;
 
 public class AuditableEntityInterceptor : SaveChangesInterceptor
 {

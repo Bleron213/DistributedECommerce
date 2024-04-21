@@ -1,6 +1,6 @@
-﻿using BoxCommerce.Warehouse.ApiClient.Abstractions.Requests;
+﻿using DistributedECommerce.Warehouse.ApiClient.Abstractions.Requests;
 
-namespace BoxCommerce.Warehouse.ApiClient.Abstractions
+namespace DistributedECommerce.Warehouse.ApiClient.Abstractions
 {
     public interface IWarehouseApiClient
     {

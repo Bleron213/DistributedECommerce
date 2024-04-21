@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Orders.Application.Common.Infrastructure
+namespace DistributedECommerce.Orders.Application.Common.Infrastructure
 {
     public interface IMessageSender
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Warehouse.Domain.Enums
+namespace DistributedECommerce.Warehouse.Domain.Enums
 {
     public enum AuditType
     {

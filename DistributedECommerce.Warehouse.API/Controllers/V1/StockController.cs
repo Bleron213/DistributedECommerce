@@ -1,13 +1,13 @@
-﻿using BoxCommerce.Orders.Application.Orders.Commands;
-using BoxCommerce.Utils.Errors;
-using BoxCommerce.Warehouse.Application.Stocks.Queries;
-using BoxCommerce.Warehouse.Common.Request;
-using BoxCommerce.Warehouse.Common.Response;
+﻿using DistributedECommerce.Orders.Application.Orders.Commands;
+using DistributedECommerce.Utils.Errors;
+using DistributedECommerce.Warehouse.Application.Stocks.Queries;
+using DistributedECommerce.Warehouse.Common.Request;
+using DistributedECommerce.Warehouse.Common.Response;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BoxCommerce.Warehouse.API.Controllers.V1
+namespace DistributedECommerce.Warehouse.API.Controllers.V1
 {
     public class StockController : ApiBaseController
     {

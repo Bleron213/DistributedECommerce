@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Orders.Domain.Enums
+namespace DistributedECommerce.Orders.Domain.Enums
 {
     public enum ComponentType
     {

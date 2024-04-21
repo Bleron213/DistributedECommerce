@@ -1,12 +1,12 @@
-﻿using BoxCommerce.Orders.Application.Common.Infrastructure;
-using BoxCommerce.Orders.Common.Requests;
-using BoxCommerce.Orders.Common.Response;
-using BoxCommerce.Orders.Domain.Events;
-using BoxCommerce.Warehouse.ApiClient.Abstractions;
+﻿using DistributedECommerce.Orders.Application.Common.Infrastructure;
+using DistributedECommerce.Orders.Common.Requests;
+using DistributedECommerce.Orders.Common.Response;
+using DistributedECommerce.Orders.Domain.Events;
+using DistributedECommerce.Warehouse.ApiClient.Abstractions;
 using Newtonsoft.Json;
 using System.Text.Json;
 
-namespace BoxCommerce.Orders.Application.Orders.Commands
+namespace DistributedECommerce.Orders.Application.Orders.Commands
 {
     public class PlaceOrderCommand : IRequest<PlaceOrderResponse>
     {

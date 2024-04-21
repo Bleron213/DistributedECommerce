@@ -1,14 +1,14 @@
-﻿using BoxCommerce.Warehouse.ApiClient.Abstractions;
-using BoxCommerce.Warehouse.ApiClient.Abstractions.Requests;
-using BoxCommerce.Warehouse.ApiClient.Clients;
-using BoxCommerce.Warehouse.ApiClient.Clients.Requests;
-using BoxCommerce.Warehouse.ApiClient.Configurations;
+﻿using DistributedECommerce.Warehouse.ApiClient.Abstractions;
+using DistributedECommerce.Warehouse.ApiClient.Abstractions.Requests;
+using DistributedECommerce.Warehouse.ApiClient.Clients;
+using DistributedECommerce.Warehouse.ApiClient.Clients.Requests;
+using DistributedECommerce.Warehouse.ApiClient.Configurations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http.Headers;
 
-namespace BoxCommerce.Warehouse.ApiClient.Extensions
+namespace DistributedECommerce.Warehouse.ApiClient.Extensions
 {
     public static class WarehouseApiClientExtensions
     {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BoxCommerce.Warehouse.API.Controllers
+namespace DistributedECommerce.Warehouse.API.Controllers
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]

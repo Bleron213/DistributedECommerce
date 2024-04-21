@@ -1,4 +1,4 @@
-﻿using BoxCommerce.Orders.Domain.Entities;
+﻿using DistributedECommerce.Orders.Domain.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using System;

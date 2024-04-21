@@ -1,4 +1,4 @@
-﻿namespace BoxCommerce.Warehouse.API.Middleware;
+﻿namespace DistributedECommerce.Warehouse.API.Middleware;
 
 public class RequestLoggingMiddleware
 {

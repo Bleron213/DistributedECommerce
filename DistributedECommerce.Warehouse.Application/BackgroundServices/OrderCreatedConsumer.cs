@@ -1,9 +1,9 @@
-﻿using BoxCommerce.Orders.Common.Messages;
-using BoxCommerce.Warehouse.Application.Common.Infrastructure;
-using BoxCommerce.Warehouse.Application.Configurations;
-using BoxCommerce.Warehouse.Domain.Entities;
-using BoxCommerce.Warehouse.Domain.Enums;
-using BoxCommerce.Warehouse.Domain.Events;
+﻿using DistributedECommerce.Orders.Common.Messages;
+using DistributedECommerce.Warehouse.Application.Common.Infrastructure;
+using DistributedECommerce.Warehouse.Application.Configurations;
+using DistributedECommerce.Warehouse.Domain.Entities;
+using DistributedECommerce.Warehouse.Domain.Enums;
+using DistributedECommerce.Warehouse.Domain.Events;
 using Dapper;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.Data.SqlClient;
@@ -23,7 +23,7 @@ using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Warehouse.Application.BackgroundServices
+namespace DistributedECommerce.Warehouse.Application.BackgroundServices
 {
     public class OrderCreatedConsumer : BackgroundService
     {

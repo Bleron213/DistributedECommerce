@@ -22,10 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BoxCommerce.Domain.Errors\BoxCommerce.Orders.Domain.Errors.csproj" />
-    <ProjectReference Include="..\BoxCommerce.Order.Common\BoxCommerce.Orders.Common.csproj" />
-    <ProjectReference Include="..\BoxCommerce.Order.Domain\DistributedECommerce.Orders.Domain.csproj" />
-    <ProjectReference Include="..\BoxCommerce.Warehouse.ApiClient\DistributedECommerce.Warehouse.ApiClient.csproj" />
+    <ProjectReference Include="..\DistributedECommerce.Domain.Errors\DistributedECommerce.Orders.Domain.Errors.csproj" />
+    <ProjectReference Include="..\DistributedECommerce.Order.Common\DistributedECommerce.Orders.Common.csproj" />
+    <ProjectReference Include="..\DistributedECommerce.Order.Domain\DistributedECommerce.Orders.Domain.csproj" />
+    <ProjectReference Include="..\DistributedECommerce.Warehouse.ApiClient\DistributedECommerce.Warehouse.ApiClient.csproj" />
   </ItemGroup>
 
 </Project>

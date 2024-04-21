@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Warehouse.Domain.Entities.Interfaces
+namespace DistributedECommerce.Warehouse.Domain.Entities.Interfaces
 {
     public interface IAuditable
     {

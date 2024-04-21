@@ -6,15 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BoxCommerce.Warehouse.Application.Common.Infrastructure;
-using BoxCommerce.Warehouse.Domain.Entities;
+using DistributedECommerce.Warehouse.Application.Common.Infrastructure;
+using DistributedECommerce.Warehouse.Domain.Entities;
 using Newtonsoft.Json;
-using BoxCommerce.Warehouse.Domain.Entities.Interfaces;
-using BoxCommerce.Warehouse.Domain.Entities.Attributes;
+using DistributedECommerce.Warehouse.Domain.Entities.Interfaces;
+using DistributedECommerce.Warehouse.Domain.Entities.Attributes;
 using MediatR;
 
 
-namespace BoxCommerce.Warehouse.Infrastructure.Data.Interceptors
+namespace DistributedECommerce.Warehouse.Infrastructure.Data.Interceptors
 {
     public class DispatchDomainEventsInterceptor : SaveChangesInterceptor
     {

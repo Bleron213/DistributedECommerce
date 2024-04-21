@@ -1,10 +1,10 @@
-﻿using BoxCommerce.Orders.Application.Common.Infrastructure;
-using BoxCommerce.Orders.Application.Configurations;
+﻿using DistributedECommerce.Orders.Application.Common.Infrastructure;
+using DistributedECommerce.Orders.Application.Configurations;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System.Text;
 
-namespace BoxCommerce.Orders.Infrastructure.Messaging
+namespace DistributedECommerce.Orders.Infrastructure.Messaging
 {
     public class RabbitMqMessageSender : IMessageSender
     {

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BoxCommerce.Utils\BoxCommerce.Utils.csproj" />
+    <ProjectReference Include="..\DistributedECommerce.Utils\DistributedECommerce.Utils.csproj" />
   </ItemGroup>
 
 </Project>

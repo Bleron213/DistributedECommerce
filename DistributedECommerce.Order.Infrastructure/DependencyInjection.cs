@@ -1,6 +1,6 @@
-﻿using BoxCommerce.Orders.Application.Common.Infrastructure;
-using BoxCommerce.Orders.Infrastructure.Data;
-using BoxCommerce.Orders.Infrastructure.Data.Interceptors;
+﻿using DistributedECommerce.Orders.Application.Common.Infrastructure;
+using DistributedECommerce.Orders.Infrastructure.Data;
+using DistributedECommerce.Orders.Infrastructure.Data.Interceptors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Orders.Infrastructure
+namespace DistributedECommerce.Orders.Infrastructure
 {
     public static class DependencyInjection
     {

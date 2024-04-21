@@ -1,8 +1,8 @@
-﻿using BoxCommerce.Warehouse.Domain.Common;
+﻿using DistributedECommerce.Warehouse.Domain.Common;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BoxCommerce.Warehouse.Domain.Entities
+namespace DistributedECommerce.Warehouse.Domain.Entities
 {
     public class BaseEntity
     {

@@ -1,13 +1,13 @@
-﻿using BoxCommerce.Orders.Domain.Entities.Interfaces;
-using BoxCommerce.Utils.Exceptions;
+﻿using DistributedECommerce.Orders.Domain.Entities.Interfaces;
+using DistributedECommerce.Utils.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BoxCommerce.Orders.Domain.Errors.Order;
+using DistributedECommerce.Orders.Domain.Errors.Order;
 
-namespace BoxCommerce.Orders.Domain.Entities
+namespace DistributedECommerce.Orders.Domain.Entities
 {
 
     public class Order : BaseEntity, IAuditable

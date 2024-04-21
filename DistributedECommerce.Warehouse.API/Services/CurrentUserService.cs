@@ -1,6 +1,6 @@
-﻿using BoxCommerce.Warehouse.Application.Common.Infrastructure;
+﻿using DistributedECommerce.Warehouse.Application.Common.Infrastructure;
 
-namespace BoxCommerce.Warehouse.API.Services
+namespace DistributedECommerce.Warehouse.API.Services
 {
     public class CurrentUserService : ICurrentUserService
     {

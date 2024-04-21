@@ -1,14 +1,14 @@
-﻿using BoxCommerce.Orders.Application.Common.Infrastructure;
-using BoxCommerce.Orders.Application.Orders.Commands;
-using BoxCommerce.Orders.Common.Requests;
-using BoxCommerce.Orders.Common.Response;
-using BoxCommerce.Warehouse.ApiClient.Abstractions;
-using BoxCommerce.Warehouse.ApiClient.Clients;
+﻿using DistributedECommerce.Orders.Application.Common.Infrastructure;
+using DistributedECommerce.Orders.Application.Orders.Commands;
+using DistributedECommerce.Orders.Common.Requests;
+using DistributedECommerce.Orders.Common.Response;
+using DistributedECommerce.Warehouse.ApiClient.Abstractions;
+using DistributedECommerce.Warehouse.ApiClient.Clients;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BoxCommerce.Orders.API.Controllers.V1
+namespace DistributedECommerce.Orders.API.Controllers.V1
 {
     public class ComponentController : ApiBaseController
     {

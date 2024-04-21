@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace BoxCommerce.Orders.API.Middleware;
+namespace DistributedECommerce.Orders.API.Middleware;
 
 public class RequestLoggingMiddleware
 {

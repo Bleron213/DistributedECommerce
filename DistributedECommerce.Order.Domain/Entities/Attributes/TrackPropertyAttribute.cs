@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Orders.Domain.Entities.Attributes
+namespace DistributedECommerce.Orders.Domain.Entities.Attributes
 {
     public class TrackPropertyAttribute : Attribute
     {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace BoxCommerce.Warehouse.Infrastructure.Migrations
+namespace DistributedECommerce.Warehouse.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration

@@ -1,10 +1,10 @@
-﻿using BoxCommerce.Warehouse.Application.Common.Infrastructure;
-using BoxCommerce.Warehouse.Domain.Entities;
-using BoxCommerce.Warehouse.Domain.Enums;
-using BoxCommerce.Warehouse.Infrastructure.Data;
+﻿using DistributedECommerce.Warehouse.Application.Common.Infrastructure;
+using DistributedECommerce.Warehouse.Domain.Entities;
+using DistributedECommerce.Warehouse.Domain.Enums;
+using DistributedECommerce.Warehouse.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace BoxCommerce.Warehouse.API.Services
+namespace DistributedECommerce.Warehouse.API.Services
 {
     public class WarehouseSeeder
     {

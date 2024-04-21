@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
-using BoxCommerce.Warehouse.Application.Common.Infrastructure;
+using DistributedECommerce.Warehouse.Application.Common.Infrastructure;
 using Microsoft.Extensions.Logging;
 
-namespace BoxCommerce.Warehouse.Application.Common.Behaviours;
+namespace DistributedECommerce.Warehouse.Application.Common.Behaviours;
 
 public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {

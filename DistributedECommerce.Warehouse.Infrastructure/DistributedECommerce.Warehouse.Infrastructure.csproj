@@ -29,7 +29,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\BoxCommerce.Warehouse.Application\DistributedECommerce.Warehouse.Application.csproj" />
+		<ProjectReference Include="..\DistributedECommerce.Warehouse.Application\DistributedECommerce.Warehouse.Application.csproj" />
 	</ItemGroup>
 
 

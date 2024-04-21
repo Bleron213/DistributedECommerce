@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BoxCommerce.Domain.Errors\BoxCommerce.Orders.Domain.Errors.csproj" />
-    <ProjectReference Include="..\BoxCommerce.Utils\DistributedECommerce.Utils.csproj" />
+    <ProjectReference Include="..\DistributedECommerce.Domain.Errors\DistributedECommerce.Orders.Domain.Errors.csproj" />
+    <ProjectReference Include="..\DistributedECommerce.Utils\DistributedECommerce.Utils.csproj" />
   </ItemGroup>
 
 </Project>

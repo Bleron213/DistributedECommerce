@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
-using BoxCommerce.Orders.Application.Common.Infrastructure;
-using BoxCommerce.Orders.Domain.Entities;
+using DistributedECommerce.Orders.Application.Common.Infrastructure;
+using DistributedECommerce.Orders.Domain.Entities;
 using Newtonsoft.Json;
-using BoxCommerce.Orders.Domain.Entities.Interfaces;
-using BoxCommerce.Orders.Domain.Entities.Attributes;
+using DistributedECommerce.Orders.Domain.Entities.Interfaces;
+using DistributedECommerce.Orders.Domain.Entities.Attributes;
 
-namespace BoxCommerce.Orders.Infrastructure.Data.Interceptors;
+namespace DistributedECommerce.Orders.Infrastructure.Data.Interceptors;
 
 public class AuditTrailInterceptor : SaveChangesInterceptor
 {

@@ -1,4 +1,4 @@
-﻿namespace BoxCommerce.Warehouse.Application.Configurations
+﻿namespace DistributedECommerce.Warehouse.Application.Configurations
 {
     public class RabbitMqConfiguration
     {

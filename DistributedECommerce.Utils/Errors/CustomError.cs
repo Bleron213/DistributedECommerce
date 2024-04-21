@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Utils.Errors
+namespace DistributedECommerce.Utils.Errors
 {
     public class CustomError
     {

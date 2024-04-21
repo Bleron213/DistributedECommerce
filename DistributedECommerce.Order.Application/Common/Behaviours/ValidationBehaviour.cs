@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace BoxCommerce.Orders.Application.Common.Behaviours;
+namespace DistributedECommerce.Orders.Application.Common.Behaviours;
 
 public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
      where TRequest : notnull

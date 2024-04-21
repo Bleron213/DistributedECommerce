@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BoxCommerce.Orders.Common.Requests
+namespace DistributedECommerce.Orders.Common.Requests
 {
     public class PlaceOrderRequest
     {

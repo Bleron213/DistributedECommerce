@@ -1,13 +1,13 @@
-﻿using BoxCommerce.Warehouse.Application.Common.Infrastructure;
-using BoxCommerce.Warehouse.Common.Request;
-using BoxCommerce.Warehouse.Common.Response;
-using BoxCommerce.Warehouse.Domain.Entities;
+﻿using DistributedECommerce.Warehouse.Application.Common.Infrastructure;
+using DistributedECommerce.Warehouse.Common.Request;
+using DistributedECommerce.Warehouse.Common.Response;
+using DistributedECommerce.Warehouse.Domain.Entities;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using Dapper;
-using BoxCommerce.Warehouse.Domain.Enums;
+using DistributedECommerce.Warehouse.Domain.Enums;
 
-namespace BoxCommerce.Warehouse.Application.Stocks.Queries
+namespace DistributedECommerce.Warehouse.Application.Stocks.Queries
 {
     public class CheckInStockQuery : IRequest<InStockResponse>
     {

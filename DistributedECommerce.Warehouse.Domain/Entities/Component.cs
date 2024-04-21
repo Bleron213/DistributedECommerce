@@ -1,12 +1,12 @@
-﻿using BoxCommerce.Utils.Exceptions;
-using BoxCommerce.Warehouse.Domain.Enums;
-using BoxCommerce.Warehouse.Domain.Errors.Stock;
+﻿using DistributedECommerce.Utils.Exceptions;
+using DistributedECommerce.Warehouse.Domain.Enums;
+using DistributedECommerce.Warehouse.Domain.Errors.Stock;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Warehouse.Domain.Entities
+namespace DistributedECommerce.Warehouse.Domain.Entities
 {
     public class Component : BaseEntity
     {

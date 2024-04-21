@@ -1,10 +1,10 @@
-﻿using BoxCommerce.Utils.Errors;
+﻿using DistributedECommerce.Utils.Errors;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
 
-namespace BoxCommerce.Orders.Domain.Errors.Order
+namespace DistributedECommerce.Orders.Domain.Errors.Order
 {
     public class OrderErrors
     {

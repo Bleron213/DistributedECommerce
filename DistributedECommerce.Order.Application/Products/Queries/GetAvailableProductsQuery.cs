@@ -1,12 +1,12 @@
-﻿using BoxCommerce.Orders.Application.Common.Infrastructure;
-using BoxCommerce.Orders.Common.Response;
+﻿using DistributedECommerce.Orders.Application.Common.Infrastructure;
+using DistributedECommerce.Orders.Common.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Orders.Application.Products.Queries
+namespace DistributedECommerce.Orders.Application.Products.Queries
 {
     public class GetAvailableProductsQuery : IRequest<List<ProductResponse>>
     {

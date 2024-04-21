@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BoxCommerce.Warehouse.Common.Request
+namespace DistributedECommerce.Warehouse.Common.Request
 {
     public class MarkProductInOrderRequest
     {

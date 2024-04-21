@@ -1,13 +1,13 @@
-﻿using BoxCommerce.Warehouse.Application.Common.Infrastructure;
-using BoxCommerce.Warehouse.Infrastructure.Data;
-using BoxCommerce.Warehouse.Infrastructure.Data.Interceptors;
+﻿using DistributedECommerce.Warehouse.Application.Common.Infrastructure;
+using DistributedECommerce.Warehouse.Infrastructure.Data;
+using DistributedECommerce.Warehouse.Infrastructure.Data.Interceptors;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Data;
 
-namespace BoxCommerce.Warehouse.Infrastructure
+namespace DistributedECommerce.Warehouse.Infrastructure
 {
     public static class DependencyInjection
     {

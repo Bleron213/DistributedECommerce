@@ -1,5 +1,5 @@
-﻿using BoxCommerce.Warehouse.Application.Common.Infrastructure;
-using BoxCommerce.Warehouse.Common.Request;
+﻿using DistributedECommerce.Warehouse.Application.Common.Infrastructure;
+using DistributedECommerce.Warehouse.Common.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace BoxCommerce.Orders.Application.Orders.Commands
+namespace DistributedECommerce.Orders.Application.Orders.Commands
 {
     public class MarkProductInOrderCommand : IRequest
     {

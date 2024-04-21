@@ -16,9 +16,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\BoxCommerce.Utils\DistributedECommerce.Utils.csproj" />
-		<ProjectReference Include="..\BoxCommerce.Warehouse.Application\DistributedECommerce.Warehouse.Application.csproj" />
-		<ProjectReference Include="..\BoxCommerce.Warehouse.Common\DistributedECommerce.Warehouse.Common.csproj" />
-		<ProjectReference Include="..\BoxCommerce.Warehouse.Infrastructure\DistributedECommerce.Warehouse.Infrastructure.csproj" />
+		<ProjectReference Include="..\DistributedECommerce.Utils\DistributedECommerce.Utils.csproj" />
+		<ProjectReference Include="..\DistributedECommerce.Warehouse.Application\DistributedECommerce.Warehouse.Application.csproj" />
+		<ProjectReference Include="..\DistributedECommerce.Warehouse.Common\DistributedECommerce.Warehouse.Common.csproj" />
+		<ProjectReference Include="..\DistributedECommerce.Warehouse.Infrastructure\DistributedECommerce.Warehouse.Infrastructure.csproj" />
 	</ItemGroup>
 </Project>

@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Utils.Errors
+namespace DistributedECommerce.Utils.Errors
 {
     public class ErrorDetails : Error
     {

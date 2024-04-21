@@ -1,12 +1,12 @@
-﻿using BoxCommerce.Utils;
-using BoxCommerce.Warehouse.Common.Request;
-using BoxCommerce.Warehouse.Common.Response;
+﻿using DistributedECommerce.Utils;
+using DistributedECommerce.Warehouse.Common.Request;
+using DistributedECommerce.Warehouse.Common.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Warehouse.ApiClient.Abstractions.Requests
+namespace DistributedECommerce.Warehouse.ApiClient.Abstractions.Requests
 {
     public interface IStock
     {

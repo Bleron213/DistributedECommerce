@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BoxCommerce.Orders.Common.Response
+namespace DistributedECommerce.Orders.Common.Response
 {
     public class ComponentResponse
     {

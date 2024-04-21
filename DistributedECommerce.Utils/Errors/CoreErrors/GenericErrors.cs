@@ -1,4 +1,4 @@
-﻿using BoxCommerce.Utils.Errors;
+﻿using DistributedECommerce.Utils.Errors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Utils.Errors.CoreErrors
+namespace DistributedECommerce.Utils.Errors.CoreErrors
 {
     public class GenericErrors
     {

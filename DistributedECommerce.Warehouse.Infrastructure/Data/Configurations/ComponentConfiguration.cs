@@ -1,4 +1,4 @@
-﻿using BoxCommerce.Warehouse.Domain.Entities;
+﻿using DistributedECommerce.Warehouse.Domain.Entities;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Warehouse.Infrastructure.Data.Configurations
+namespace DistributedECommerce.Warehouse.Infrastructure.Data.Configurations
 {
     public class ComponentConfiguration : IEntityTypeConfiguration<Component>
     {

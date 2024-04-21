@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BoxCommerce.Orders.Common.Messages
+namespace DistributedECommerce.Orders.Common.Messages
 {
     public class OrderCreatedMessageRequest
     {

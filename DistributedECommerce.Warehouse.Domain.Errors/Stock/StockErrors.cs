@@ -1,10 +1,10 @@
-﻿using BoxCommerce.Utils.Errors;
+﻿using DistributedECommerce.Utils.Errors;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
 
-namespace BoxCommerce.Warehouse.Domain.Errors.Stock
+namespace DistributedECommerce.Warehouse.Domain.Errors.Stock
 {
     public static class StockErrors
     {

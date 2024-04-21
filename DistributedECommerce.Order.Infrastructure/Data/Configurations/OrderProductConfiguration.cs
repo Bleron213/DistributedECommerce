@@ -1,7 +1,7 @@
-﻿using BoxCommerce.Orders.Domain.Entities;
+﻿using DistributedECommerce.Orders.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace BoxCommerce.Orders.Infrastructure.Data.Configurations
+namespace DistributedECommerce.Orders.Infrastructure.Data.Configurations
 {
     public class OrderProductConfiguration : IEntityTypeConfiguration<OrderProduct>
     {

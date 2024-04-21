@@ -1,6 +1,6 @@
-﻿using BoxCommerce.Orders.Application.Common.Infrastructure;
+﻿using DistributedECommerce.Orders.Application.Common.Infrastructure;
 
-namespace BoxCommerce.Orders.API.Services
+namespace DistributedECommerce.Orders.API.Services
 {
     public class CurrentUserService : ICurrentUserService
     {

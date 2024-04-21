@@ -1,10 +1,10 @@
-﻿using BoxCommerce.Orders.Application.Common.Infrastructure;
-using BoxCommerce.Orders.Domain.Enums;
-using BoxCommerce.Orders.Infrastructure.Data;
+﻿using DistributedECommerce.Orders.Application.Common.Infrastructure;
+using DistributedECommerce.Orders.Domain.Enums;
+using DistributedECommerce.Orders.Infrastructure.Data;
 using System.Reflection;
 using System.Threading;
 
-namespace BoxCommerce.Orders.API.Services
+namespace DistributedECommerce.Orders.API.Services
 {
     public class OrderSeeder
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BoxCommerce.Warehouse.ApiClient.Configurations
+namespace DistributedECommerce.Warehouse.ApiClient.Configurations
 {
     public class WarehouseApiClientConfiguration
     {

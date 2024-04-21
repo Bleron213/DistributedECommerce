@@ -1,9 +1,9 @@
-﻿using BoxCommerce.Utils.Errors;
+﻿using DistributedECommerce.Utils.Errors;
 using System;
 using System.Net;
 using System.Text.Json;
 
-namespace BoxCommerce.Utils
+namespace DistributedECommerce.Utils
 {
     public class ResponseResult
     {

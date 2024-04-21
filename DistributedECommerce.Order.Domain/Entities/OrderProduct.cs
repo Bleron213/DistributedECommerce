@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace BoxCommerce.Orders.Domain.Entities
+namespace DistributedECommerce.Orders.Domain.Entities
 {
     public class OrderProduct : BaseEntity
     {

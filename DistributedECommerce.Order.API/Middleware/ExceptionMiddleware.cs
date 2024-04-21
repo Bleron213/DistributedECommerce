@@ -1,13 +1,13 @@
-﻿using BoxCommerce.Orders.Application.Common.Infrastructure;
-using BoxCommerce.Utils.Errors;
-using BoxCommerce.Utils.Exceptions;
+﻿using DistributedECommerce.Orders.Application.Common.Infrastructure;
+using DistributedECommerce.Utils.Errors;
+using DistributedECommerce.Utils.Exceptions;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
 using System.Net;
 using System.Text.Json;
 
-namespace BoxCommerce.Orders.API.Middleware;
+namespace DistributedECommerce.Orders.API.Middleware;
 
 public class ExceptionMiddleware
 {

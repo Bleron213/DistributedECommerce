@@ -1,4 +1,4 @@
-﻿using BoxCommerce.Orders.Domain.Entities;
+﻿using DistributedECommerce.Orders.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Orders.Infrastructure.Data.Configurations
+namespace DistributedECommerce.Orders.Infrastructure.Data.Configurations
 {
     public class OrderConfiguration : IEntityTypeConfiguration<Order>
     {

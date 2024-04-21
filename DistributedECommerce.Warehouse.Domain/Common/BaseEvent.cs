@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Warehouse.Domain.Common
+namespace DistributedECommerce.Warehouse.Domain.Common
 {
     public abstract class BaseEvent : INotification
     {

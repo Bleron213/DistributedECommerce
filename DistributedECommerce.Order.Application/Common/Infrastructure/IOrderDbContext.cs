@@ -1,4 +1,4 @@
-﻿using BoxCommerce.Orders.Domain.Entities;
+﻿using DistributedECommerce.Orders.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Orders.Application.Common.Infrastructure
+namespace DistributedECommerce.Orders.Application.Common.Infrastructure
 {
     public interface IOrderDbContext
     {

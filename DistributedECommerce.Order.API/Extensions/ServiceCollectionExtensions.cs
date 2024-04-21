@@ -1,10 +1,10 @@
-﻿using BoxCommerce.Orders.API.Services;
-using BoxCommerce.Orders.Application.Common.Infrastructure;
-using BoxCommerce.Orders.Application.Configurations;
-using BoxCommerce.Orders.Infrastructure.Messaging;
-using BoxCommerce.Warehouse.ApiClient.Configurations;
+﻿using DistributedECommerce.Orders.API.Services;
+using DistributedECommerce.Orders.Application.Common.Infrastructure;
+using DistributedECommerce.Orders.Application.Configurations;
+using DistributedECommerce.Orders.Infrastructure.Messaging;
+using DistributedECommerce.Warehouse.ApiClient.Configurations;
 
-namespace BoxCommerce.Orders.API.Extensions
+namespace DistributedECommerce.Orders.API.Extensions
 {
     public static class ServiceCollectionExtensions
     {

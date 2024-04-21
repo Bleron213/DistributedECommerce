@@ -1,12 +1,12 @@
-﻿using BoxCommerce.Warehouse.Application.Common.Infrastructure;
-using BoxCommerce.Warehouse.Domain.Events;
+﻿using DistributedECommerce.Warehouse.Application.Common.Infrastructure;
+using DistributedECommerce.Warehouse.Domain.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoxCommerce.Warehouse.Application.Product.EventHandlers
+namespace DistributedECommerce.Warehouse.Application.Product.EventHandlers
 {
     public class ProductOrderedEventHandler : INotificationHandler<ProductOrderedEvent>
     {
