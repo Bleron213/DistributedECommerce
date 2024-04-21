@@ -14,6 +14,7 @@ namespace DistributedECommerce.Orders.Application.Common.Infrastructure
 
         public DbSet<AuditTrail> AuditTrails { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderProduct> OrderProducts { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
         int SaveChanges();
         ChangeTracker ChangeTracker { get; }

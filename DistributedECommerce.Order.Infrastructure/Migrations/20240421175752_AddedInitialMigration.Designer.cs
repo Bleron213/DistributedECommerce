@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DistributedECommerce.Orders.Infrastructure.Migrations
 {
     [DbContext(typeof(OrderDbContext))]
-    [Migration("20240420103848_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240421175752_AddedInitialMigration")]
+    partial class AddedInitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -144,7 +144,7 @@ namespace DistributedECommerce.Orders.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderProduct");
+                    b.ToTable("OrderProducts");
                 });
 
             modelBuilder.Entity("DistributedECommerce.Orders.Domain.Entities.OrderProduct", b =>

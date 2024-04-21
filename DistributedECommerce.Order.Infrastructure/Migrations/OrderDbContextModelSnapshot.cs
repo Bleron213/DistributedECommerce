@@ -141,7 +141,7 @@ namespace DistributedECommerce.Orders.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderProduct");
+                    b.ToTable("OrderProducts");
                 });
 
             modelBuilder.Entity("DistributedECommerce.Orders.Domain.Entities.OrderProduct", b =>

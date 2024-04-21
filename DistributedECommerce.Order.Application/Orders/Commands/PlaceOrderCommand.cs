@@ -14,12 +14,12 @@ namespace DistributedECommerce.Orders.Application.Orders.Commands
 {
     public class CancelOrderCommand : IRequest
     {
-        public Guid OrderId { get; }
+        public string OrderNumber { get; }
 
-        public CancelOrderCommand(Guid orderId)
+        public CancelOrderCommand(string orderNumber)
         {
-            if(orderId == Guid.Empty) throw new ArgumentNullException(nameof(orderId));
-            OrderId = orderId;
+            ArgumentNullException.ThrowIfNull(orderNumber);
+            OrderNumber = orderNumber;
         }
 
         public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand>
@@ -38,7 +38,7 @@ namespace DistributedECommerce.Orders.Application.Orders.Commands
 
             public async Task Handle(CancelOrderCommand request, CancellationToken cancellationToken)
             {
-                var order = await _orderDbContext.Orders.FirstOrDefaultAsync(x => x.Id ==  request.OrderId && x.CustomerId == _currentUserService.UserGuid) ?? throw new AppException(GenericErrors.NotFound);
+                var order = await _orderDbContext.Orders.FirstOrDefaultAsync(x => x.OrderNumber ==  request.OrderNumber && x.CustomerId == _currentUserService.UserGuid) ?? throw new AppException(GenericErrors.NotFound);
 
                 if(order.Status != OrderStatus.READY && order.Status != OrderStatus.IN_PROCESS)
                     throw new AppException(OrderErrors.InvalidCancelOrder(order.Status.ToString()));

@@ -41,14 +41,14 @@ namespace DistributedECommerce.Orders.API.Controllers.V1
             return Ok(result);
         }
 
-        [HttpPost("CancelOrder/{orderId:Guid}")]
+        [HttpPost("CancelOrder/{orderNumber}")]
         [ProducesResponseType(201)]
         [ProducesResponseType(400, Type = typeof(ErrorDetails))]
-        public async Task<IActionResult> CancelOrder(Guid orderId)
+        public async Task<IActionResult> CancelOrder(string orderNumber)
         {
             _logger.LogInformation("Entering method {method}", nameof(CancelOrder));
 
-             await _mediator.Send(new CancelOrderCommand(orderId));
+             await _mediator.Send(new CancelOrderCommand(orderNumber));
 
             _logger.LogInformation("leaving method {method}", nameof(CancelOrder));
 

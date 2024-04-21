@@ -21,6 +21,9 @@ namespace DistributedECommerce.Warehouse.API.Services
 
         public async Task SeedDefaultData()
         {
+            _context.Components.ExecuteDelete();
+            _context.Products.ExecuteDelete();
+
             // ---------- Simulate Product in READY state (no need to order additional components) --------------------------------- //
 
             //{

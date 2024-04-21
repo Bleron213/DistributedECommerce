@@ -43,6 +43,7 @@ namespace DistributedECommerce.Warehouse.Domain.Entities
             switch (Status)
             {
                 case ComponentStatus.SCHEDULED:
+                    ProductId = null;
                     Status = ComponentStatus.CANCELLED;
                     break;
                 case ComponentStatus.READY:

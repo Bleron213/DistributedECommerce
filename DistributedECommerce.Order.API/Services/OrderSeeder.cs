@@ -1,6 +1,7 @@
 ﻿using DistributedECommerce.Orders.Application.Common.Infrastructure;
 using DistributedECommerce.Orders.Domain.Enums;
 using DistributedECommerce.Orders.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using System.Threading;
 
@@ -19,6 +20,8 @@ namespace DistributedECommerce.Orders.API.Services
 
         public async Task SeedDefaultData()
         {
+            _context.OrderProducts.ExecuteDelete();
+            _context.Orders.ExecuteDelete();
             _context.SaveChanges();
         }
     }

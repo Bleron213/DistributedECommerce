@@ -25,7 +25,7 @@ using System.Threading.Tasks;
 
 namespace DistributedECommerce.Warehouse.Application.BackgroundServices
 {
-    public class OrderCreatedConsumer : BackgroundService
+    public class OrderCreatedConsumer : BackgroundService, IDisposable
     {
         private readonly IConnection _connection;
         private readonly IModel _channel;
@@ -110,8 +110,8 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
 
             using var scope = _services.CreateScope();
             var dbConnectionString = _configuration["ConnectionStrings:DatabaseConnection"];
-            using IDbConnection db = new SqlConnection(dbConnectionString);
-            var dbContext = scope.ServiceProvider.GetRequiredService<IWarehouseDbContext>();
+            _db = new SqlConnection(dbConnectionString);
+            _warehouseDbContext = scope.ServiceProvider.GetRequiredService<IWarehouseDbContext>();
 
             foreach (var newProduct in newProducts)
             {
@@ -123,9 +123,9 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
                 }
 
                 product.AddDomainEvent(new ProductOrderedEvent(product));
-                dbContext.Products.Add(product);
+                _warehouseDbContext.Products.Add(product);
             }
-            await dbContext.SaveChangesAsync();
+            await _warehouseDbContext.SaveChangesAsync();
         }
 
         private async Task CheckComponents(Domain.Entities.Product product, List<string>? components)
@@ -189,6 +189,12 @@ left join Components c on c.Code = cteValues.componentCode and c.Status = @Statu
                             Status = @Status
                         WHERE Id in @ProductIds
                         ", new { OrderNumber = orderCreatedMessage.OrderId, ProductIds = existingProducts, Status = (int)ProductStatus.ASSEMBLED });
+        }
+
+        public override void Dispose()
+        {
+            _db.Dispose();
+            base.Dispose();
         }
 
         public class ComponentStockStatus

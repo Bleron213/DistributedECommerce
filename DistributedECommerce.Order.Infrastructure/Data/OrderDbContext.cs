@@ -8,6 +8,7 @@ namespace DistributedECommerce.Orders.Infrastructure.Data
     public class OrderDbContext(DbContextOptions<OrderDbContext> options) : DbContext(options), IOrderDbContext
     {
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderProduct> OrderProducts { get; set; }
         public DbSet<AuditTrail> AuditTrails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

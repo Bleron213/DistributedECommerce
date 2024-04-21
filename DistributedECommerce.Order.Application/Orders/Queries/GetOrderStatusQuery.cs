@@ -60,9 +60,9 @@ namespace DistributedECommerce.Orders.Application.Orders.Queries
                 case Domain.Enums.OrderStatus.READY:
                     return new("Your order is ready for Delivery", DistributedECommerce.Orders.Common.Enums.OrderStatus.READY);                
                 case Domain.Enums.OrderStatus.CANCELLED:
-                    return new($"Your order has been cancelled with reason: {order.Reason}", DistributedECommerce.Orders.Common.Enums.OrderStatus.READY);
+                    return new($"Your order has been cancelled with reason: {order.Reason}", DistributedECommerce.Orders.Common.Enums.OrderStatus.CANCELLED);
                 case Domain.Enums.OrderStatus.DELIVERED:
-                    return new($"Your order has been been delivered. We hope you are happy with what you ordered!", DistributedECommerce.Orders.Common.Enums.OrderStatus.READY);
+                    return new($"Your order has been been delivered. We hope you are happy with what you ordered!", DistributedECommerce.Orders.Common.Enums.OrderStatus.DELIVERED);
                 default:
                     throw new Exception("Unknown status");
             }
