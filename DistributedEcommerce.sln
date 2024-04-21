@@ -5,8 +5,6 @@ VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{5F6219C0-AD58-40A7-8407-D4601F3BF2A1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{FFD9C9AE-D02E-45CD-BACA-972001436269}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{0CB933CB-6095-4969-8009-76A9A7A7D2B7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DistributedECommerce.ApiGateway", "DistributedECommerce.ApiGateway\DistributedECommerce.ApiGateway.csproj", "{25E7C5F7-68C1-4220-9761-A9E0C36473C2}"
