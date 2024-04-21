@@ -32,6 +32,11 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
         private readonly IServiceProvider _services;
         private readonly IConfiguration _configuration;
 
+
+        private IWarehouseDbContext _warehouseDbContext;
+        private IDbConnection _db;
+        private ILogger<OrderCreatedConsumer> _logger;
+
         public OrderCreatedConsumer(
             IServiceProvider services,
             IConfiguration configuration,
@@ -70,8 +75,8 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
         private async Task HandleOrderCreated(OrderCreatedMessageRequest orderCreatedMessage)
         {
             using var scope = _services.CreateScope();
-            var logger = scope.ServiceProvider.GetService<ILogger<OrderCreatedConsumer>>()!;
-            var dbContext = scope.ServiceProvider.GetRequiredService<IWarehouseDbContext>();
+            _logger = scope.ServiceProvider.GetService<ILogger<OrderCreatedConsumer>>()!;
+            _warehouseDbContext = scope.ServiceProvider.GetRequiredService<IWarehouseDbContext>();
 
 
 
@@ -86,7 +91,7 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Exception while processing Order Create");
+                _logger.LogError(ex, "Exception while processing Order Create");
                 // Mark Order as failed
                 throw;
             }
@@ -110,11 +115,11 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
 
             foreach (var newProduct in newProducts)
             {
-                var product = new Domain.Entities.Product(newProduct.ProductCode, orderCreatedMessage.OrderNumber);
+                var product = new Domain.Entities.Product(newProduct.ProductCode, orderCreatedMessage.OrderId);
                 var components = JsonConvert.DeserializeObject<List<string>>(newProduct.Components);
                 if (components != null && components.Count != 0)
                 {
-                    await CheckComponents(db, dbContext, product, components);
+                    await CheckComponents(product, components);
                 }
 
                 product.AddDomainEvent(new ProductOrderedEvent(product));
@@ -123,11 +128,11 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
             await dbContext.SaveChangesAsync();
         }
 
-        private async Task CheckComponents(IDbConnection db, IWarehouseDbContext dbContext, Domain.Entities.Product product, List<string>? components)
+        private async Task CheckComponents(Domain.Entities.Product product, List<string>? components)
         {
             var valuesClause = string.Join(",", components.Select((opt, index) => $"('{opt}')"));
 
-            var componentStatuses = await db.QueryAsync<ComponentStockStatus>($@"
+            var componentStatuses = await _db.QueryAsync<ComponentStockStatus>($@"
 with cteValues as (
 	SELECT *
 	FROM (VALUES
@@ -158,7 +163,7 @@ left join Components c on c.Code = cteValues.componentCode and c.Status = @Statu
             var inStockComponents = componentStatuses.Where(x => x.ComponentStatus == "IN_STOCK").ToList();
             if (inStockComponents.Count != 0)
             {
-                var inStockComponentsDb = await dbContext.Components.Where(x => inStockComponents.Select(x => x.Id).Contains(x.Id)).ToListAsync();
+                var inStockComponentsDb = await _warehouseDbContext.Components.Where(x => inStockComponents.Select(x => x.Id).Contains(x.Id)).ToListAsync();
                 foreach (var item in inStockComponentsDb)
                 {
                     item.SetProductId(product.Id);
@@ -183,7 +188,7 @@ left join Components c on c.Code = cteValues.componentCode and c.Status = @Statu
                         Set OrderNumber = @OrderNumber,
                             Status = @Status
                         WHERE Id in @ProductIds
-                        ", new { OrderNumber = orderCreatedMessage.OrderNumber, ProductIds = existingProducts, Status = (int)ProductStatus.ASSEMBLED });
+                        ", new { OrderNumber = orderCreatedMessage.OrderId, ProductIds = existingProducts, Status = (int)ProductStatus.ASSEMBLED });
         }
 
         public class ComponentStockStatus
@@ -193,4 +198,6 @@ left join Components c on c.Code = cteValues.componentCode and c.Status = @Statu
             public string ComponentStatus { get; set; }
         }
     }
+
+
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DistributedECommerce.Orders.Domain.Errors.Order;
+using DistributedECommerce.Orders.Domain.Enums;
 
 namespace DistributedECommerce.Orders.Domain.Entities
 {
@@ -80,13 +81,5 @@ namespace DistributedECommerce.Orders.Domain.Entities
 
            return new string(orderNumber);
         }
-    }
-
-    public enum OrderStatus
-    {
-        IN_PROCESS,
-        READY,
-        DELIVERED,
-        CANCELLED
     }
 }

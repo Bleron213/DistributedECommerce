@@ -1,13 +1,54 @@
 ﻿using DistributedECommerce.Orders.Application.Common.Infrastructure;
 using DistributedECommerce.Orders.Common.Requests;
 using DistributedECommerce.Orders.Common.Response;
+using DistributedECommerce.Orders.Domain.Enums;
+using DistributedECommerce.Orders.Domain.Errors.Order;
 using DistributedECommerce.Orders.Domain.Events;
+using DistributedECommerce.Utils.Errors.CoreErrors;
+using DistributedECommerce.Utils.Exceptions;
 using DistributedECommerce.Warehouse.ApiClient.Abstractions;
 using Newtonsoft.Json;
 using System.Text.Json;
 
 namespace DistributedECommerce.Orders.Application.Orders.Commands
 {
+    public class CancelOrderCommand : IRequest
+    {
+        public Guid OrderId { get; }
+
+        public CancelOrderCommand(Guid orderId)
+        {
+            if(orderId == Guid.Empty) throw new ArgumentNullException(nameof(orderId));
+            OrderId = orderId;
+        }
+
+        public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand>
+        {
+            private readonly IOrderDbContext _orderDbContext;
+            private readonly ICurrentUserService _currentUserService;
+
+            public CancelOrderCommandHandler(
+                IOrderDbContext orderDbContext,
+                ICurrentUserService currentUserService
+                )
+            {
+                _orderDbContext = orderDbContext;
+                _currentUserService = currentUserService;
+            }
+
+            public async Task Handle(CancelOrderCommand request, CancellationToken cancellationToken)
+            {
+                var order = await _orderDbContext.Orders.FirstOrDefaultAsync(x => x.Id ==  request.OrderId && x.CustomerId == _currentUserService.UserGuid) ?? throw new AppException(GenericErrors.NotFound);
+
+                if(order.Status != OrderStatus.READY && order.Status != OrderStatus.IN_PROCESS)
+                    throw new AppException(OrderErrors.InvalidCancelOrder(order.Status.ToString()));
+                
+                order.CancelOrder("Canceled by Customer");
+                order.AddDomainEvent(new OrderCanceledEvent(order));
+                await _orderDbContext.SaveChangesAsync();
+            }
+        }
+    }
     public class PlaceOrderCommand : IRequest<PlaceOrderResponse>
     {
         public PlaceOrderRequest Payload { get; }

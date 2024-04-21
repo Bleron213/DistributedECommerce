@@ -37,5 +37,19 @@ namespace DistributedECommerce.Warehouse.Domain.Entities
         {
             ProductId = productId;
         }
+
+        public void OrderCanceled()
+        {
+            switch (Status)
+            {
+                case ComponentStatus.SCHEDULED:
+                    Status = ComponentStatus.CANCELLED;
+                    break;
+                case ComponentStatus.READY:
+                    ProductId = null;
+                    break;
+            }
+            
+        }
     }
 }

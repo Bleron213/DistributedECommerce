@@ -11,6 +11,7 @@ namespace DistributedECommerce.Orders.Infrastructure.Messaging
         private IConnection _connection;
 
         private const string OrderCreated_Queue = "order-created";
+        private const string OrderCanceled_Queue = "order-canceled";
 
         public RabbitMqMessageSender(RabbitMqConfiguration configuration)
         {
@@ -28,14 +29,26 @@ namespace DistributedECommerce.Orders.Infrastructure.Messaging
         {
             using var channel = _connection.CreateModel();
             channel.ExchangeDeclare(exchangeName, ExchangeType.Direct, durable: false);
-            channel.QueueDeclare(OrderCreated_Queue, false, false, false, null);
 
-            channel.QueueBind(OrderCreated_Queue, exchangeName, "order-created");
+            var queueInfo = GetQueueName(exchangeName);
+
+            channel.QueueDeclare(queueInfo.QueueName, false, false, false, null);
+            channel.QueueBind(queueInfo.QueueName, exchangeName, queueInfo.RoutingKey);
 
             var json = JsonConvert.SerializeObject(message);
             var body = Encoding.UTF8.GetBytes(json);
 
-            channel.BasicPublish(exchange: exchangeName, "order-created", null, body: body);
+            channel.BasicPublish(exchange: exchangeName, queueInfo.RoutingKey, null, body: body);
+        }
+
+        public (string QueueName, string RoutingKey) GetQueueName(string exchangeName)
+        {
+            switch (exchangeName)
+            {
+                case "order:order-created": return new (OrderCreated_Queue, "order-created");
+                case "order:order-canceled": return new (OrderCanceled_Queue, "order-canceled");
+                default: throw new Exception("No queue found");
+            }
         }
     }
 }

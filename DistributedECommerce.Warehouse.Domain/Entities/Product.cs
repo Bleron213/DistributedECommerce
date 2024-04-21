@@ -25,6 +25,22 @@ namespace DistributedECommerce.Warehouse.Domain.Entities
         #region Navigation
         public List<Component> Components { get; private set; } = new();
 
+        public void OrderCanceled()
+        {
+            OrderNumber = null;
+            switch (Status)
+            {
+                case ProductStatus.IN_PROCESS:
+                    Status = ProductStatus.CANCELLED;
+                    break;
+            }
+
+            foreach (var item in Components)
+            {
+                item.OrderCanceled();
+            }
+        }
+
 
         #endregion
 

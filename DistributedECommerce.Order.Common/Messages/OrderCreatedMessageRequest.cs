@@ -6,7 +6,7 @@ namespace DistributedECommerce.Orders.Common.Messages
 {
     public class OrderCreatedMessageRequest
     {
-        public string OrderNumber { get; set; }
+        public string OrderId { get; set; }
         public List<OrderProduct> Products { get; set; } = new List<OrderProduct>();
         public class OrderProduct
         {

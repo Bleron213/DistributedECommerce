@@ -37,7 +37,7 @@ namespace DistributedECommerce.Orders.Application.Orders.EventHandlers
             _logger.LogInformation("Order Created Event Handler {DomainEvent}", notification.GetType().Name);
             var message = new OrderCreatedMessageRequest
             {
-                OrderNumber = notification.Order.Id.ToString(),
+                OrderId = notification.Order.Id.ToString(),
                 Products = notification.Order.OrderedProducts.Select(x => new OrderProduct
                 {
                     ProductCode = x.ProductCode,
@@ -45,7 +45,32 @@ namespace DistributedECommerce.Orders.Application.Orders.EventHandlers
                     Components = x.ComponentCodes
                 }).ToList()
             };
-            await _messageSender.SendMessageAsync(message, "product:ordercreate");
+            await _messageSender.SendMessageAsync(message, "order:order-created");
+        }
+    }    
+    
+    public class OrderCanceledEventHandler : INotificationHandler<OrderCanceledEvent>
+    {
+        private readonly ILogger<OrderCanceledEventHandler> _logger;
+        private readonly IMessageSender _messageSender;
+
+        public OrderCanceledEventHandler(
+            ILogger<OrderCanceledEventHandler> logger,
+            IMessageSender messageSender
+            )
+        {
+            _logger = logger;
+            _messageSender = messageSender;
+        }
+
+        public async Task Handle(OrderCanceledEvent notification, CancellationToken cancellationToken)
+        {
+            _logger.LogInformation("Order Canceled Event Handler {DomainEvent}", notification.GetType().Name);
+            var message = new OrderCanceledMessageRequest
+            {
+                OrderId = notification.Order.Id.ToString(),
+            };
+            await _messageSender.SendMessageAsync(message, "order:order-canceled");
         }
     }
 }

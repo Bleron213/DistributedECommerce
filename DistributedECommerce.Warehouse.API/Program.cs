@@ -51,6 +51,7 @@ try
     builder.Configuration.Bind("RabbitMqConfiguration", rabbitMqConfiguration);
     builder.Services.AddSingleton(rabbitMqConfiguration);
     builder.Services.AddHostedService<OrderCreatedConsumer>();
+    builder.Services.AddHostedService<OrderCanceledConsumer>();
 
     builder.Services
         .AddApiVersioning(options =>

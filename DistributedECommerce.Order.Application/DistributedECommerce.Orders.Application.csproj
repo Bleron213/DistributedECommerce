@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Common\Application\" />
-    <Folder Include="Orders\Queries\" />
     <Folder Include="Products\Commands\" />
     <Folder Include="Products\EventHandlers\" />
   </ItemGroup>

@@ -4,6 +4,7 @@
     {
         SCHEDULED = 0,
         READY = 1,
-        ASSEMBLED = 2
+        ASSEMBLED = 2,
+        CANCELLED = 3,
     }
 }

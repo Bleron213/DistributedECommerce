@@ -9,6 +9,7 @@ namespace DistributedECommerce.Orders.API.Services
         /// In a real word scenario, this comes from HttpContext
         /// </summary>
         public string UserId => "6efc7698-7115-468d-9143-db4dd2c429c5";
+        public Guid UserGuid => Guid.Parse("6efc7698-7115-468d-9143-db4dd2c429c5");
         public string Username => "BleronQorri";
     }
 }
