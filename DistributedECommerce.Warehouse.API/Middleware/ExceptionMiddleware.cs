@@ -109,9 +109,6 @@ public class ExceptionMiddleware
 
             }
 
-            var env = _hostingEnv.EnvironmentName;
-            var env1 = _hostingEnv.IsDevelopment();
-
             if (_hostingEnv.IsDevelopment() && (!string.IsNullOrEmpty(errorDetails.ErrorMessage) || !string.IsNullOrEmpty(errorDetails.ErrorExceptionMessage)))
             {
                 errorDetails.ErrorDetails = exception.Message;
