@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "331adb77-5e94-4770-b069-5f6c365c45e7",
+		"name": "DistributedECommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9443685",
+		"_collection_link": "https://crimson-escape-843472.postman.co/workspace/Alertmeter~861607dc-b536-461b-8a09-103db9f596d2/collection/9443685-331adb77-5e94-4770-b069-5f6c365c45e7?action=share&source=collection_link&creator=9443685"
+	},
+	"item": [
+		{
+			"name": "Test",
+			"item": [
+				{
+					"name": "Complete Component",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{WarehouseAPI}}/api/v1/Test/ComponentCompleted/ED27C86E-AA60-447E-844B-AD7E0DD3D33F?oldStatus=2&newStatus=3",
+							"host": [
+								"{{WarehouseAPI}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Test",
+								"ComponentCompleted",
+								"ED27C86E-AA60-447E-844B-AD7E0DD3D33F"
+							],
+							"query": [
+								{
+									"key": "oldStatus",
+									"value": "2"
+								},
+								{
+									"key": "newStatus",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Available Components",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{OrdersAPI}}/api/v1/Component/AvailableComponents",
+					"host": [
+						"{{OrdersAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Component",
+						"AvailableComponents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Available Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{OrdersAPI}}/api/v1/Component/AvailableComponents",
+					"host": [
+						"{{OrdersAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Component",
+						"AvailableComponents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Place Order for an Existing Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"vehicleCode\": \"VOLKSWAGEN_GOLF_GTI\",\r\n  \"components\": [\r\n    {\r\n      \"code\": \"TURBO_INLINE_FOUR_2_0L\"\r\n    },\r\n    {\r\n      \"code\": \"BACKBONE\"\r\n    },\r\n    {\r\n      \"code\": \"PERFORMANCE_TRACK_PACK\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{OrdersAPI}}/api/v1/Orders/PlaceOrder",
+					"host": [
+						"{{OrdersAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Orders",
+						"PlaceOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Place Order for a Product with Components in Stock",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"vehicleCode\": \"BMW_M3\",\r\n  \"components\": [\r\n    {\r\n      \"code\": \"ELECTRIC_MOTOR_60_KWH\"\r\n    },\r\n    {\r\n      \"code\": \"TUBULAR_SPACE_FRAME\"\r\n    },\r\n    {\r\n      \"code\": \"CITY_URBAN_PACK\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{OrdersAPI}}/api/v1/Orders/PlaceOrder",
+					"host": [
+						"{{OrdersAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Orders",
+						"PlaceOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Place order for a Product with no components in stock",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"vehicleCode\": \"AUDI_RS3\",\r\n  \"components\": [\r\n    {\r\n      \"code\": \"ELECTRIC_MOTOR_60_KWH\"\r\n    },\r\n    {\r\n      \"code\": \"TUBULAR_SPACE_FRAME\"\r\n    },\r\n    {\r\n      \"code\": \"CITY_URBAN_PACK\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{OrdersAPI}}/api/v1/Orders/PlaceOrder",
+					"host": [
+						"{{OrdersAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Orders",
+						"PlaceOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{OrdersAPI}}/api/v1/Orders/OrderStatus/S40F53RJ",
+					"host": [
+						"{{OrdersAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Orders",
+						"OrderStatus",
+						"S40F53RJ"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cancel Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{OrdersAPI}}/api/v1/Orders/CancelOrder/BVNMMODF",
+					"host": [
+						"{{OrdersAPI}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Orders",
+						"CancelOrder",
+						"BVNMMODF"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
