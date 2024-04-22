@@ -63,3 +63,4 @@ This software uses the following open source software in its source code:
 - [XUnit](https://github.com/xunit/xunit)
 - [Serilog](https://github.com/serilog/serilog)
 - [RabbitMQ](https://github.com/rabbitmq)
+- [Docker](https://github.com/docker)
