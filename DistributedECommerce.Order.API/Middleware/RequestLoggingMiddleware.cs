@@ -29,9 +29,9 @@ public class RequestLoggingMiddleware
         if (!correlationIdFound)
         {
             correlationId = Guid.NewGuid().ToString();
+            httpContext.Request.Headers.Append("x-correlation-id", correlationId);
         }
 
-        httpContext.Request.Headers.Append("x-correlation-id", correlationId);
         valuesDictionary.Add("x-correlation-id", correlationId);
 
         var userAgentExists = httpContext?.Request?.Headers?.TryGetValue("User-Agent", out var userAgent);
