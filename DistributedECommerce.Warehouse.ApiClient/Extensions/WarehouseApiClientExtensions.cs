@@ -24,7 +24,7 @@ namespace DistributedECommerce.Warehouse.ApiClient.Extensions
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var correlationIdFound = httpContextAccessor.HttpContext.Request.Headers.TryGetValue("x-correlation-id", out var correlationId);
+                var correlationIdFound = httpContextAccessor!.HttpContext.Request.Headers.TryGetValue("x-correlation-id", out var correlationId);
                 if (correlationIdFound)
                 {
                     client.DefaultRequestHeaders.Add("x-correlation-id", correlationId.ToString());

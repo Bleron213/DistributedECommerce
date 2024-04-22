@@ -58,9 +58,10 @@ namespace DistributedECommerce.Orders.Application.BackgroundServices
                
                 var valuesDictionary = new Dictionary<string, object>();
 
-                var correlationIdFound = ea.BasicProperties.Headers.TryGetValue("x-correlation-id", out var correlationIdObj);
-                if (correlationIdFound)
+                var correlationIdFound = ea.BasicProperties?.Headers?.ContainsKey("x-correlation-id");
+                if (correlationIdFound != null && correlationIdFound.Value)
                 {
+                    var correlationIdObj = ea!.BasicProperties!.Headers["x-correlation-id"];
                     var correlationIdByteArr = (byte[])correlationIdObj;
 
                     var correlationId = Encoding.UTF8.GetString(correlationIdByteArr);

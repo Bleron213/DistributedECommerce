@@ -47,10 +47,10 @@ namespace DistributedECommerce.Orders.Infrastructure.Messaging
             var body = Encoding.UTF8.GetBytes(json);
 
             var properties = channel.CreateBasicProperties();
-            var correlationIdFound = _httpContextAccessor?.HttpContext?.Request?.Headers?.TryGetValue("x-correlation-id", out _);
+            var correlationIdFound = _httpContextAccessor?.HttpContext?.Request?.Headers?.ContainsKey("x-correlation-id");
             if (correlationIdFound != null && correlationIdFound.Value)
             {
-                var correlation = _httpContextAccessor.HttpContext.Request.Headers["x-correlation-id"];
+                var correlation = _httpContextAccessor!.HttpContext!.Request.Headers["x-correlation-id"];
                 properties.Headers = new Dictionary<string, object>();
                 properties.Headers["x-correlation-id"] = correlation.ToString();
             }

@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: ./DistributedECommerce.ApiGateway/Dockerfile
+    hostname: gateway-api
     ports: 
       - "8051:8080"
     depends_on:
@@ -12,6 +13,12 @@ services:
       - warehouse-api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "Routes__0__DownstreamScheme=http" 
+      - "Routes__0__DownstreamHostAndPorts__0__Host=warehouse-api" 
+      - "Routes__0__DownstreamHostAndPorts__0__Port=8080"
+      - "Routes__1__DownstreamScheme=http" 
+      - "Routes__1__DownstreamHostAndPorts__0__Host=orders-api" 
+      - "Routes__1__DownstreamHostAndPorts__0__Port=8080"    
     networks:
       - app-network
 
@@ -19,6 +26,7 @@ services:
     build:
       context: .
       dockerfile: ./DistributedECommerce.Order.API/Dockerfile
+    hostname: orders-api
     ports: 
       - "8061:8080"
     depends_on:
@@ -31,6 +39,7 @@ services:
       - "RabbitMqConfiguration__HostName=lepuri"
       - "RabbitMqConfiguration__Username=guest"
       - "RabbitMqConfiguration__Password=guest"
+      - "WarehouseApiClientConfiguration__BaseUrl=http://gateway-api:8080/warehouse/" 
     networks:
       - app-network
     restart: unless-stopped
@@ -39,6 +48,7 @@ services:
     build:
       context: .
       dockerfile: ./DistributedECommerce.Warehouse.API/Dockerfile
+    hostname: warehouse-api
     ports: 
       - "8071:8080"
     depends_on:
@@ -64,8 +74,6 @@ services:
       - "1434:1433"
     networks:
       - app-network
-    logging:
-      driver: none
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -75,8 +83,6 @@ services:
       - "15672:15672"
     networks:
       - app-network
-    logging:
-      driver: none
 
 networks:
   app-network:
