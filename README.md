@@ -41,10 +41,11 @@ $ git clone https://github.com/Bleron213/DistributedECommerce
 
 # How to run in your local machine
 * Open the solution in Visual Studio 2022
-* Start DistributedECommerce.Order.API, DistributedECommerce.Warehouse.API,DistributedEcommerce.ApiGateway together project. Additionally, make sure there is a valid LocalDb connection and that RabbitMq is running (Windows, No Docker).
+* Start DistributedECommerce.Order.API, DistributedECommerce.Warehouse.API,DistributedEcommerce.ApiGateway in Properties tab, and start all three projects at once. Additionally, make sure there is a valid LocalDb connection and that RabbitMq is running
 
 # How to run in Docker
 * Navigate to the directory where the solution is
+* Make sure you have Docker installed and running
 * Open a terminal and type **docker-compose up**
 
 ## How To Test
