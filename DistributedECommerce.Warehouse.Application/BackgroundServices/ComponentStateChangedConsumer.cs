@@ -27,6 +27,7 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
         private IWarehouseDbContext _dbContext;
         private ILogger<ComponentStateChangedConsumer> _logger;
         private IDbConnection _db;
+        private IMessageSender _messageSender;
 
 
         public ComponentStateChangedConsumer(
@@ -58,7 +59,9 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
                 using var scope = _services.CreateScope();
                 _dbContext = scope.ServiceProvider.GetRequiredService<IWarehouseDbContext>();
                 _logger = scope.ServiceProvider.GetRequiredService<ILogger<ComponentStateChangedConsumer>>();
-                
+                _logger = scope.ServiceProvider.GetRequiredService<ILogger<ComponentStateChangedConsumer>>();
+                _messageSender = scope.ServiceProvider.GetService<IMessageSender>();
+
                 var valuesDictionary = new Dictionary<string, object>();
 
                 var correlationIdFound = ea.BasicProperties.Headers.TryGetValue("x-correlation-id", out var correlationIdObj);
@@ -113,12 +116,11 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
                 var productsReady = await _dbContext.Products.Where(x => x.OrderNumber == component.Product.OrderNumber).AllAsync(x => x.Status == Domain.Enums.ProductStatus.ASSEMBLED);
                 if (productsReady)
                 {
-                    var msgSender = scope.ServiceProvider.GetService<IMessageSender>();
                     var message = new OrderStateChangedMessage
                     {
                         OrderId = component.Product.OrderNumber,
                     };
-                    await msgSender.SendMessageAsync(message, "order:order-state-change");
+                    await _messageSender.SendMessageAsync(message, "order:order-state-change");
                 }
             }
 

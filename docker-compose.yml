@@ -1,0 +1,82 @@
+version: '3.4'
+
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: ./DistributedECommerce.ApiGateway/Dockerfile
+    ports: 
+      - "8051:8080"
+    depends_on:
+      - orders-api
+      - warehouse-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - app-network
+
+  orders-api:
+    build:
+      context: .
+      dockerfile: ./DistributedECommerce.Order.API/Dockerfile
+    ports: 
+      - "8061:8080"
+    depends_on:
+      - db
+      - rabbitmq
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "Serilog__WriteTo__0__Args__connectionString=Server=db;Database=LogsDb;User Id=sa;Password=r00t.R00T;Trust Server Certificate=True"
+      - "ConnectionStrings__DatabaseConnection=Server=db;Database=OrdersDb;User Id=sa;Password=r00t.R00T;Trust Server Certificate=True"
+      - "RabbitMqConfiguration__HostName=lepuri"
+      - "RabbitMqConfiguration__Username=guest"
+      - "RabbitMqConfiguration__Password=guest"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  warehouse-api:
+    build:
+      context: .
+      dockerfile: ./DistributedECommerce.Warehouse.API/Dockerfile
+    ports: 
+      - "8071:8080"
+    depends_on:
+      - db
+      - rabbitmq
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development 
+      - "Serilog__WriteTo__0__Args__connectionString=Server=db;Database=LogsDb;User Id=sa;Password=r00t.R00T;Trust Server Certificate=True"
+      - "ConnectionStrings__DatabaseConnection=Server=db;Database=WarehouseDb;User Id=sa;Password=r00t.R00T;Trust Server Certificate=True"
+      - "RabbitMqConfiguration__HostName=lepuri"
+      - "RabbitMqConfiguration__Username=guest"
+      - "RabbitMqConfiguration__Password=guest"
+    networks:
+      - app-network
+    restart: unless-stopped
+      
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: r00t.R00T
+      ACCEPT_EULA: 'Y'
+    ports:
+      - "1434:1433"
+    networks:
+      - app-network
+    logging:
+      driver: none
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: lepuri
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - app-network
+    logging:
+      driver: none
+
+networks:
+  app-network:
