@@ -75,11 +75,10 @@ namespace DistributedECommerce.Warehouse.API.Controllers.V1
 
             return Ok();
         }
-               
 
 
     }
-    
+
     public class InsertProductReq
     {
         public string VehicleCode { get; set; }
@@ -95,7 +94,7 @@ namespace DistributedECommerce.Warehouse.API.Controllers.V1
     public class ComponentStatusChange
     {
         public Guid ComponentId { get; set; }
-        public ComponentStatus OldStatus { get; set; }
-        public ComponentStatus NewStatus { get; set; }
+        public Common.Enums.ComponentStatus OldStatus { get; set; }
+        public Common.Enums.ComponentStatus NewStatus { get; set; }
     }
 }

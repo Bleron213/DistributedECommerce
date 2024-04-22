@@ -27,7 +27,7 @@ namespace DistributedECommerce.Warehouse.ApiClient.Extensions
                 var correlationIdFound = httpContextAccessor.HttpContext.Request.Headers.TryGetValue("x-correlation-id", out var correlationId);
                 if (correlationIdFound)
                 {
-                    client.DefaultRequestHeaders.Add("x-correlation-id", correlationId.ToString()); // Github requires a user-agent
+                    client.DefaultRequestHeaders.Add("x-correlation-id", correlationId.ToString());
                 }
 
             });

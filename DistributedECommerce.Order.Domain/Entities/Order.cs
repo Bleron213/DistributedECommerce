@@ -26,6 +26,9 @@ namespace DistributedECommerce.Orders.Domain.Entities
 
         public Order()
         {
+            Id = Guid.NewGuid();
+            OrderNumber = GenerateOrderNumber();
+            Status = OrderStatus.IN_PROCESS;
         }
 
         public string OrderNumber { get; private set; }
@@ -56,12 +59,18 @@ namespace DistributedECommerce.Orders.Domain.Entities
 
         public void CancelOrder(string reason)
         {
+            if (Status == OrderStatus.DELIVERED || Status == OrderStatus.CANCELLED)
+                throw new AppException(OrderErrors.InvalidStatusMove(Status.ToString(), OrderStatus.CANCELLED.ToString()));
+
             Reason = reason;
             Status = OrderStatus.CANCELLED;
         }
 
         public void DeliverOrder()
         {
+            if (Status != OrderStatus.READY)
+                throw new AppException(OrderErrors.InvalidStatusMove(Status.ToString(), OrderStatus.DELIVERED.ToString()));
+
             Status = OrderStatus.DELIVERED;
         }
 
