@@ -55,10 +55,36 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
             var consumer = new EventingBasicConsumer(_channel);
             consumer.Received += async (ch, ea) =>
             {
-                var content = Encoding.UTF8.GetString(ea.Body.ToArray());
-                var orderCreatedMessage = JsonConvert.DeserializeObject<ComponentStatusChange>(content);
-                await HandleComponentStateChanged(orderCreatedMessage);
-                _channel.BasicAck(ea.DeliveryTag, false);
+                using var scope = _services.CreateScope();
+                _dbContext = scope.ServiceProvider.GetRequiredService<IWarehouseDbContext>();
+                _logger = scope.ServiceProvider.GetRequiredService<ILogger<ComponentStateChangedConsumer>>();
+                
+                var valuesDictionary = new Dictionary<string, object>();
+
+                var correlationIdFound = ea.BasicProperties.Headers.TryGetValue("x-correlation-id", out var correlationIdObj);
+                if (correlationIdFound)
+                {
+                    var correlationIdByteArr = (byte[])correlationIdObj;
+
+                    var correlationId = Encoding.UTF8.GetString(correlationIdByteArr);
+                    valuesDictionary.Add("x-correlation-id", correlationId!);
+                }
+                using (_logger.BeginScope(valuesDictionary))
+                {
+                    try
+                    {
+                        var content = Encoding.UTF8.GetString(ea.Body.ToArray());
+                        var componentStateChange = JsonConvert.DeserializeObject<ComponentStatusChange>(content);
+                        await HandleComponentStateChanged(componentStateChange!);
+                        _channel.BasicAck(ea.DeliveryTag, false);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Error in ComponentStateChange Consumer");
+                    }
+
+                }
+
             };
 
             _channel.BasicConsume("component-completed", false, consumer);
@@ -66,47 +92,36 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
 
         private async Task HandleComponentStateChanged(ComponentStatusChange componentStatusChange)
         {
-            using var scope = _services.CreateScope();
-            _dbContext = scope.ServiceProvider.GetRequiredService<IWarehouseDbContext>();
-            _logger = scope.ServiceProvider.GetRequiredService<ILogger<ComponentStateChangedConsumer>>();
+            var component = await _dbContext.Components
+                .Include(x => x.Product)
+                .FirstOrDefaultAsync(x => x.Id == componentStatusChange.ComponentId) ?? throw new Exception($"Could not find component with Id = {componentStatusChange.ComponentId}");
 
-            try
+            component.ComponentStateChange((Domain.Enums.ComponentStatus)componentStatusChange.NewStatus);
+
+            await _dbContext.SaveChangesAsync();
+
+            if (component.ProductId is not null)
             {
-                var component = await _dbContext.Components
-                    .Include(x => x.Product)
-                    .FirstOrDefaultAsync(x => x.Id == componentStatusChange.ComponentId) ?? throw new Exception($"Could not find component with Id = {componentStatusChange.ComponentId}");
-
-                component.ComponentStateChange((Domain.Enums.ComponentStatus)componentStatusChange.NewStatus);
-
+                var product = await _dbContext.Products.Include(x => x.Components).Where(x => x.Id == component.ProductId!).FirstAsync();
+                product.ProductStatusUpdateCheck();
                 await _dbContext.SaveChangesAsync();
-
-                if (component.ProductId is not null)
-                {
-                    var product = await _dbContext.Products.Include(x => x.Components).Where(x => x.Id == component.ProductId!).FirstAsync();
-                    product.ProductStatusUpdateCheck();
-                    await _dbContext.SaveChangesAsync();
-                }
-
-
-                if (component.ProductId is not null && component.Product.OrderNumber is not null)
-                {
-                    var productsReady = await _dbContext.Products.Where(x => x.OrderNumber == component.Product.OrderNumber).AllAsync(x => x.Status == Domain.Enums.ProductStatus.ASSEMBLED);
-                    if (productsReady)
-                    {
-                        var msgSender = scope.ServiceProvider.GetService<IMessageSender>();
-                        var message = new OrderStateChangedMessage
-                        {
-                            OrderId = component.Product.OrderNumber,
-                        };
-                        await msgSender.SendMessageAsync(message, "order:order-state-change");
-                    }
-                }
-
             }
-            catch (Exception ex)
+
+
+            if (component.ProductId is not null && component.Product.OrderNumber is not null)
             {
-                _logger.LogError(ex, "Error in ComponentStateChange Consumer");
+                var productsReady = await _dbContext.Products.Where(x => x.OrderNumber == component.Product.OrderNumber).AllAsync(x => x.Status == Domain.Enums.ProductStatus.ASSEMBLED);
+                if (productsReady)
+                {
+                    var msgSender = scope.ServiceProvider.GetService<IMessageSender>();
+                    var message = new OrderStateChangedMessage
+                    {
+                        OrderId = component.Product.OrderNumber,
+                    };
+                    await msgSender.SendMessageAsync(message, "order:order-state-change");
+                }
             }
+
 
         }
 

@@ -23,6 +23,9 @@ using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using DistributedECommerce.Warehouse.Common.Message;
+using Microsoft.AspNetCore.Http;
+using System.Collections;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace DistributedECommerce.Warehouse.Application.BackgroundServices
 {
@@ -64,10 +67,43 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
             var consumer = new EventingBasicConsumer(_channel);
             consumer.Received += async (ch, ea) =>
             {
-                var content = Encoding.UTF8.GetString(ea.Body.ToArray());
-                var orderCreatedMessage = JsonConvert.DeserializeObject<OrderCreatedMessageRequest>(content);
-                await HandleOrderCreated(orderCreatedMessage);
-                _channel.BasicAck(ea.DeliveryTag, false);
+                using var scope = _services.CreateScope();
+                _logger = scope.ServiceProvider.GetService<ILogger<OrderCreatedConsumer>>()!;
+                _warehouseDbContext = scope.ServiceProvider.GetRequiredService<IWarehouseDbContext>();
+
+                var valuesDictionary = new Dictionary<string, object>();
+
+                var correlationIdFound = ea.BasicProperties.Headers.TryGetValue("x-correlation-id", out var correlationIdObj);
+                if (correlationIdFound)
+                {
+                    var correlationIdByteArr = (byte[])correlationIdObj;
+
+                    var correlationId = Encoding.UTF8.GetString(correlationIdByteArr);
+                    valuesDictionary.Add("x-correlation-id", correlationId!);
+                }
+
+                using (_logger.BeginScope(valuesDictionary))
+                {
+                    try
+                    {
+
+                        var content = Encoding.UTF8.GetString(ea.Body.ToArray());
+                        var orderCreatedMessage = JsonConvert.DeserializeObject<OrderCreatedMessageRequest>(content);
+                        await HandleOrderCreated(orderCreatedMessage);
+                        _channel.BasicAck(ea.DeliveryTag, false);
+                    }
+                    catch (Exception ex)
+                    { 
+                        _logger.LogError(ex, "Exception while processing Order Create");
+                        // Mark Order as failed
+                    }
+                    finally
+                    {
+                        // Event to acknowledge that the order was placed and that the order can move to the next phase
+                    }
+                }
+
+
             };
 
             _channel.BasicConsume("order-created", false, consumer);
@@ -75,30 +111,11 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
 
         private async Task HandleOrderCreated(OrderCreatedMessageRequest orderCreatedMessage)
         {
-            using var scope = _services.CreateScope();
-            _logger = scope.ServiceProvider.GetService<ILogger<OrderCreatedConsumer>>()!;
-            _warehouseDbContext = scope.ServiceProvider.GetRequiredService<IWarehouseDbContext>();
-
-
-
-            try
-            {
-                // Would be a good idea to mark this entire block of code into a transaction scope.
-                // If any step fails, all fail, and order also fails as a consequence
-                // Although it would need some refactor. Perhaps using the same scope instead of dividing it in two parts
-                await MarkExistingProductsInOrder(orderCreatedMessage);
-                await OrderNewProducts(orderCreatedMessage);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Exception while processing Order Create");
-                // Mark Order as failed
-                throw;
-            }
-            finally
-            {
-                // Event to acknowledge that the order was placed and that the order can move to the next phase
-            }
+            // Would be a good idea to mark this entire block of code into a transaction scope.
+            // If any step fails, all fail, and order also fails as a consequence
+            // Although it would need some refactor. Perhaps using the same scope instead of dividing it in two parts
+            await MarkExistingProductsInOrder(orderCreatedMessage);
+            await OrderNewProducts(orderCreatedMessage);
         }
 
         private async Task OrderNewProducts(OrderCreatedMessageRequest orderCreatedMessage)

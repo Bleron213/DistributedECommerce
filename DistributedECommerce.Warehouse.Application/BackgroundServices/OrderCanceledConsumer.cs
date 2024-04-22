@@ -52,10 +52,41 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
             var consumer = new EventingBasicConsumer(_channel);
             consumer.Received += async (ch, ea) =>
             {
-                var content = Encoding.UTF8.GetString(ea.Body.ToArray());
-                var orderCreatedMessage = JsonConvert.DeserializeObject<OrderCanceledMessageRequest>(content);
-                await HandleOrderCanceled(orderCreatedMessage);
-                _channel.BasicAck(ea.DeliveryTag, false);
+                using var scope = _services.CreateScope();
+                _dbContext = scope.ServiceProvider.GetRequiredService<IWarehouseDbContext>();
+                _logger = scope.ServiceProvider.GetRequiredService<ILogger<OrderCanceledConsumer>>();
+                
+                var valuesDictionary = new Dictionary<string, object>();
+
+                var correlationIdFound = ea.BasicProperties.Headers.TryGetValue("x-correlation-id", out var correlationIdObj);
+                if (correlationIdFound)
+                {
+                    var correlationIdByteArr = (byte[])correlationIdObj;
+
+                    var correlationId = Encoding.UTF8.GetString(correlationIdByteArr);
+                    valuesDictionary.Add("x-correlation-id", correlationId!);
+                }
+
+                using (_logger.BeginScope(valuesDictionary))
+                {
+                    try
+                    {
+                        var content = Encoding.UTF8.GetString(ea.Body.ToArray());
+                        var orderCanceledMessage = JsonConvert.DeserializeObject<OrderCanceledMessageRequest>(content);
+                        await HandleOrderCanceled(orderCanceledMessage!);
+                        _channel.BasicAck(ea.DeliveryTag, false);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Error in OrderCanceledConsumer");
+                    }
+                    finally
+                    {
+                        // Send to error queue
+                    }
+                }
+
             };
 
             _channel.BasicConsume("order-canceled", false, consumer);
@@ -63,34 +94,18 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
 
         private async Task HandleOrderCanceled(OrderCanceledMessageRequest orderCanceledMessage)
         {
-            using var scope = _services.CreateScope();
-            _dbContext = scope.ServiceProvider.GetRequiredService<IWarehouseDbContext>();
-            _logger = scope.ServiceProvider.GetRequiredService<ILogger<OrderCanceledConsumer>>();
+            var products = await _dbContext.Products
+                .Where(x => x.OrderNumber == orderCanceledMessage.OrderId)
+                .Include(x => x.Components)
+                .ToListAsync();
 
-            try
+            foreach (var product in products)
             {
-
-
-                var products = await _dbContext.Products
-                    .Where(x => x.OrderNumber == orderCanceledMessage.OrderId)
-                    .Include(x => x.Components)
-                    .ToListAsync();
-
-                foreach (var product in products)
-                {
-                    product.OrderCanceled();
-                }
-
-                await _dbContext.SaveChangesAsync();
+                product.OrderCanceled();
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in OrderCanceledConsumer");
-            }
-            finally
-            {
-                // Send to error queue
-            }
+
+            await _dbContext.SaveChangesAsync();
+
 
         }
     }

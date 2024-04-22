@@ -1,5 +1,6 @@
 ﻿using DistributedECommerce.Warehouse.Application.Common.Infrastructure;
 using DistributedECommerce.Warehouse.Application.Configurations;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System.Text;
@@ -11,8 +12,12 @@ namespace DistributedECommerce.Warehouse.Infrastructure.Messaging
         private IConnection _connection;
 
         private const string OrderUpdate_Queue = "order-state-change";
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public RabbitMqMessageSender(RabbitMqConfiguration configuration)
+        public RabbitMqMessageSender(
+            RabbitMqConfiguration configuration,
+            IHttpContextAccessor httpContextAccessor
+            )
         {
             var factory = new ConnectionFactory
             {
@@ -22,6 +27,7 @@ namespace DistributedECommerce.Warehouse.Infrastructure.Messaging
             };
 
             _connection = factory.CreateConnection();
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task SendMessageAsync(object message, string exchangeName)
@@ -36,6 +42,16 @@ namespace DistributedECommerce.Warehouse.Infrastructure.Messaging
 
             var json = JsonConvert.SerializeObject(message);
             var body = Encoding.UTF8.GetBytes(json);
+
+            var properties = channel.CreateBasicProperties();
+            var correlationIdFound = _httpContextAccessor?.HttpContext?.Request?.Headers?.TryGetValue("x-correlation-id", out _);
+            if (correlationIdFound != null && correlationIdFound.Value)
+            {
+                var correlation = _httpContextAccessor.HttpContext.Request.Headers["x-correlation-id"];
+                properties.Headers = new Dictionary<string, object>();
+                properties.Headers["x-correlation-id"] = correlation.ToString();
+            }
+
 
             channel.BasicPublish(exchange: exchangeName, queueInfo.RoutingKey, null, body: body);
         }

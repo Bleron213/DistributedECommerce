@@ -1,5 +1,8 @@
 ﻿using DistributedECommerce.Orders.Application.Common.Infrastructure;
 using DistributedECommerce.Orders.Application.Configurations;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Identity.Client;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System.Text;
@@ -12,8 +15,12 @@ namespace DistributedECommerce.Orders.Infrastructure.Messaging
 
         private const string OrderCreated_Queue = "order-created";
         private const string OrderCanceled_Queue = "order-canceled";
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public RabbitMqMessageSender(RabbitMqConfiguration configuration)
+        public RabbitMqMessageSender(
+            RabbitMqConfiguration configuration,
+            IHttpContextAccessor httpContextAccessor
+            )
         {
             var factory = new ConnectionFactory
             {
@@ -23,6 +30,7 @@ namespace DistributedECommerce.Orders.Infrastructure.Messaging
             };
 
             _connection = factory.CreateConnection();
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task SendMessageAsync(object message, string exchangeName)
@@ -38,7 +46,16 @@ namespace DistributedECommerce.Orders.Infrastructure.Messaging
             var json = JsonConvert.SerializeObject(message);
             var body = Encoding.UTF8.GetBytes(json);
 
-            channel.BasicPublish(exchange: exchangeName, queueInfo.RoutingKey, null, body: body);
+            var properties = channel.CreateBasicProperties();
+            var correlationIdFound = _httpContextAccessor?.HttpContext?.Request?.Headers?.TryGetValue("x-correlation-id", out _);
+            if (correlationIdFound != null && correlationIdFound.Value)
+            {
+                var correlation = _httpContextAccessor.HttpContext.Request.Headers["x-correlation-id"];
+                properties.Headers = new Dictionary<string, object>();
+                properties.Headers["x-correlation-id"] = correlation.ToString();
+            }
+
+            channel.BasicPublish(exchange: exchangeName, queueInfo.RoutingKey, properties, body: body);
         }
 
         public (string QueueName, string RoutingKey) GetQueueName(string exchangeName)

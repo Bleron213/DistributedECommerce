@@ -16,10 +16,8 @@ namespace DistributedECommerce.Warehouse.API.Extensions
         {
             var rabbitMqConfiguration = new RabbitMqConfiguration();
             configuration.Bind("RabbitMqConfiguration", rabbitMqConfiguration);
-            services.AddScoped<IMessageSender>(provider =>
-            {
-                return new RabbitMqMessageSender(rabbitMqConfiguration);
-            });
+            services.AddSingleton(rabbitMqConfiguration);
+            services.AddScoped<IMessageSender, RabbitMqMessageSender>();
             return services;
 
         }

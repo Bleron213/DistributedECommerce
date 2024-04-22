@@ -46,6 +46,7 @@ try
     builder.Services.AddInfrastructureServices(builder.Configuration);
     builder.Services.AddApplicationServices();
     builder.Services.AddAPIServices();
+    builder.Services.AddHttpContextAccessor();
     builder.Services.AddMessageQueue(builder.Configuration);
 
     var rabbitMqConfiguration = new RabbitMqConfiguration();

@@ -52,10 +52,37 @@ namespace DistributedECommerce.Orders.Application.BackgroundServices
             var consumer = new EventingBasicConsumer(_channel);
             consumer.Received += async (ch, ea) =>
             {
-                var content = Encoding.UTF8.GetString(ea.Body.ToArray());
-                var productStateChangedMessage = JsonConvert.DeserializeObject<OrderStateChangedMessage>(content);
-                await OrderStateChanged(productStateChangedMessage);
-                _channel.BasicAck(ea.DeliveryTag, false);
+                using var scope = _services.CreateScope();
+                _dbContext = scope.ServiceProvider.GetRequiredService<IOrderDbContext>();
+                _logger = scope.ServiceProvider.GetRequiredService<ILogger<OrderConsumer>>();
+               
+                var valuesDictionary = new Dictionary<string, object>();
+
+                var correlationIdFound = ea.BasicProperties.Headers.TryGetValue("x-correlation-id", out var correlationIdObj);
+                if (correlationIdFound)
+                {
+                    var correlationIdByteArr = (byte[])correlationIdObj;
+
+                    var correlationId = Encoding.UTF8.GetString(correlationIdByteArr);
+                    valuesDictionary.Add("x-correlation-id", correlationId!);
+                }
+
+                using (_logger.BeginScope(valuesDictionary))
+                {
+                    try
+                    {
+                        var content = Encoding.UTF8.GetString(ea.Body.ToArray());
+                        var productStateChangedMessage = JsonConvert.DeserializeObject<OrderStateChangedMessage>(content);
+                        await OrderStateChanged(productStateChangedMessage);
+                        _channel.BasicAck(ea.DeliveryTag, false);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Error in OrderConsumer");
+                    }
+                }
+
+
             };
 
             _channel.BasicConsume("order-state-change", false, consumer);
@@ -63,21 +90,10 @@ namespace DistributedECommerce.Orders.Application.BackgroundServices
 
         private async Task OrderStateChanged(OrderStateChangedMessage orderStateChangedMessage)
         {
-            using var scope = _services.CreateScope();
-            _dbContext = scope.ServiceProvider.GetRequiredService<IOrderDbContext>();
-            _logger = scope.ServiceProvider.GetRequiredService<ILogger<OrderConsumer>>();
-
-            try
-            {
-                var orderId = Guid.Parse(orderStateChangedMessage.OrderId);
-                var order = await _dbContext.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
-                order?.OrderReady();
-                await _dbContext.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in OrderConsumer");
-            }
+            var orderId = Guid.Parse(orderStateChangedMessage.OrderId);
+            var order = await _dbContext.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
+            order?.OrderReady();
+            await _dbContext.SaveChangesAsync();
 
         }
     }
