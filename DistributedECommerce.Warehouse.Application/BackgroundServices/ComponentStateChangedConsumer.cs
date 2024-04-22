@@ -1,10 +1,14 @@
 ﻿using DistributedECommerce.Warehouse.Application.Common.Infrastructure;
 using DistributedECommerce.Warehouse.Application.Configurations;
 using DistributedECommerce.Warehouse.Common.Enums;
+using DistributedECommerce.Warehouse.Common.Message;
+using DistributedECommerce.Warehouse.Domain.Entities;
 using DistributedECommerce.Warehouse.Domain.Events;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -21,6 +25,7 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
         private readonly IConfiguration _configuration;
 
         private IWarehouseDbContext _dbContext;
+        private ILogger<ComponentStateChangedConsumer> _logger;
         private IDbConnection _db;
 
 
@@ -63,26 +68,45 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
         {
             using var scope = _services.CreateScope();
             _dbContext = scope.ServiceProvider.GetRequiredService<IWarehouseDbContext>();
+            _logger = scope.ServiceProvider.GetRequiredService<ILogger<ComponentStateChangedConsumer>>();
 
-            var component = await _dbContext.Components
-                .Include(x => x.Product)
-                .FirstOrDefaultAsync(x => x.Id == componentStatusChange.ComponentId) ?? throw new Exception($"Could not find component with Id = {componentStatusChange.ComponentId}");
-
-            component.ComponentStateChange((Domain.Enums.ComponentStatus)componentStatusChange.NewStatus);
-
-            if(component.ProductId is not null)
+            try
             {
-                var product = await _dbContext.Products.Include(x => x.Components).Where(x => x.Id == component.ProductId!).FirstAsync();
-                var productOldStatus = product.Status;
-                product.ProductStatusUpdateCheck();
-                
-                if(productOldStatus != product.Status)
-                {
-                    product.AddDomainEvent(new ProductStateChangedEvent(product));
-                }
-            }
+                var component = await _dbContext.Components
+                    .Include(x => x.Product)
+                    .FirstOrDefaultAsync(x => x.Id == componentStatusChange.ComponentId) ?? throw new Exception($"Could not find component with Id = {componentStatusChange.ComponentId}");
 
-            await _dbContext.SaveChangesAsync();
+                component.ComponentStateChange((Domain.Enums.ComponentStatus)componentStatusChange.NewStatus);
+
+                await _dbContext.SaveChangesAsync();
+
+                if (component.ProductId is not null)
+                {
+                    var product = await _dbContext.Products.Include(x => x.Components).Where(x => x.Id == component.ProductId!).FirstAsync();
+                    product.ProductStatusUpdateCheck();
+                    await _dbContext.SaveChangesAsync();
+                }
+
+
+                if (component.ProductId is not null && component.Product.OrderNumber is not null)
+                {
+                    var productsReady = await _dbContext.Products.Where(x => x.OrderNumber == component.Product.OrderNumber).AllAsync(x => x.Status == Domain.Enums.ProductStatus.ASSEMBLED);
+                    if (productsReady)
+                    {
+                        var msgSender = scope.ServiceProvider.GetService<IMessageSender>();
+                        var message = new OrderStateChangedMessage
+                        {
+                            OrderId = component.Product.OrderNumber,
+                        };
+                        await msgSender.SendMessageAsync(message, "order:order-state-change");
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ComponentStateChange Consumer");
+            }
 
         }
 

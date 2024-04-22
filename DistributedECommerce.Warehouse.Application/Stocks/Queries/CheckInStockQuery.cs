@@ -40,15 +40,14 @@ namespace DistributedECommerce.Warehouse.Application.Stocks.Queries
             // First case is when a vehicle has status CANCELLED and all its components are ASSEMBLED
             // This means that this is a pre-assembled vehicle that was returned from the client. It is assumed to not have any defect
             var product = await db.QueryFirstOrDefaultAsync<Domain.Entities.Product>(@"
-                select * from Products p
-                where p.Code = @ProductCode and p.OrderNumber is null and p.Status = @ProductStatus
-                    AND NOT EXISTS (
-                        SELECT 1 
-                        FROM Components c
-                        WHERE c.ProductID = p.Id
-                            AND c.Status <> @ComponentStatus -- All components must have this status
-                    );
-                ", new { ProductCode = request.Payload.ProductCode, ProductStatus = ProductStatus.CANCELLED, ComponentStatus = ComponentStatus.ASSEMBLED });
+                select p.*
+                from Products p
+                left join Components c on c.ProductId = p.Id
+                where p.Code = @ProductCode 
+		                and p.OrderNumber is null 
+		                and p.Status = @ProductStatus
+		                and c.Status = @ComponentStatus;
+                ", new { ProductCode = request.Payload.ProductCode, ProductStatus = ProductStatus.ASSEMBLED, ComponentStatus = ComponentStatus.ASSEMBLED});
 
             if(product != null)
             {

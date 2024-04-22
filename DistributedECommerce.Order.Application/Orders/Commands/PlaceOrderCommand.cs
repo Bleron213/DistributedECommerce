@@ -95,6 +95,7 @@ namespace DistributedECommerce.Orders.Application.Orders.Commands
                     order.AddOrderProduct(new Domain.Entities.OrderProduct(stockResponse.Data.ProductId, stockResponse.Data.Code, request.Payload.Components.Select(x => x.Code).ToList()));
                     order.AddDomainEvent(new OrderCreatedEvent(order));
                     await _orderDbContext.Orders.AddAsync(order);
+                    order.OrderReady();
                     // Would be a good idea to have a try/catch block that regenerates the ordernumber if it already exists. 
                     await _orderDbContext.SaveChangesAsync();
 

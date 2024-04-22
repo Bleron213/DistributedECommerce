@@ -20,6 +20,7 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
         private readonly IModel _channel;
         private readonly IServiceProvider _services;
         private readonly IConfiguration _configuration;
+        private ILogger<OrderCanceledConsumer> _logger;
 
         private IWarehouseDbContext _dbContext;
         private IDbConnection _db;
@@ -64,18 +65,33 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
         {
             using var scope = _services.CreateScope();
             _dbContext = scope.ServiceProvider.GetRequiredService<IWarehouseDbContext>();
+            _logger = scope.ServiceProvider.GetRequiredService<ILogger<OrderCanceledConsumer>>();
 
-            var products = await _dbContext.Products
-                .Where(x => x.OrderNumber == orderCanceledMessage.OrderId)
-                .Include(x => x.Components)
-                .ToListAsync();
-
-            foreach (var product in products)
+            try
             {
-                product.OrderCanceled();
+
+
+                var products = await _dbContext.Products
+                    .Where(x => x.OrderNumber == orderCanceledMessage.OrderId)
+                    .Include(x => x.Components)
+                    .ToListAsync();
+
+                foreach (var product in products)
+                {
+                    product.OrderCanceled();
+                }
+
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in OrderCanceledConsumer");
+            }
+            finally
+            {
+                // Send to error queue
             }
 
-            await _dbContext.SaveChangesAsync();
         }
     }
 }

@@ -80,20 +80,5 @@ namespace DistributedECommerce.Orders.Domain.Entities
 
            return new string(orderNumber);
         }
-
-        public void ProductStateChanged()
-        {
-            var productsReady = OrderedProducts.All(x => x.Status == ProductStatus.READY);
-            if (productsReady)
-            {
-                OrderReady();
-            }
-
-            var productsCancelled = OrderedProducts.All(x => x.Status == ProductStatus.CANCELLED);
-            if (productsCancelled)
-            {
-                CancelOrder("Cancelled by Third Party");
-            }
-        }
     }
 }

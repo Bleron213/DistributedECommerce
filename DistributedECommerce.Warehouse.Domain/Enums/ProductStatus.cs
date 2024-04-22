@@ -2,10 +2,10 @@
 {
     public enum ProductStatus
     {
-         IN_PROCESS,
-         READY_TO_ASSEMBLE,
-         ASSEMBLED,
-         DELIVERED,
-         CANCELLED
+         IN_PROCESS = 0,
+         READY_TO_ASSEMBLE = 1,
+         ASSEMBLED = 2,
+         DELIVERED = 3,
+         CANCELLED = 4
     }
 }

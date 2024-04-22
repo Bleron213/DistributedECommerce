@@ -58,7 +58,7 @@ namespace DistributedECommerce.Warehouse.API.Services
                 .Where(x => x.Id == productVWGolfGtI.Id)
                 .ExecuteUpdate(setters => setters
                     .SetProperty(b => b.OrderNumber, (string?)null)
-                    .SetProperty(b => b.Status, ProductStatus.CANCELLED));
+                    .SetProperty(b => b.Status, ProductStatus.ASSEMBLED));
 
             _context.Components
                 .Where(x => x.ProductId == productVWGolfGtI.Id)

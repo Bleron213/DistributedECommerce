@@ -22,6 +22,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
+using DistributedECommerce.Warehouse.Common.Message;
 
 namespace DistributedECommerce.Warehouse.Application.BackgroundServices
 {
@@ -87,7 +88,6 @@ namespace DistributedECommerce.Warehouse.Application.BackgroundServices
                 // Although it would need some refactor. Perhaps using the same scope instead of dividing it in two parts
                 await MarkExistingProductsInOrder(orderCreatedMessage);
                 await OrderNewProducts(orderCreatedMessage);
-
             }
             catch (Exception ex)
             {

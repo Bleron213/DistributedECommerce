@@ -10,7 +10,7 @@ namespace DistributedECommerce.Warehouse.Infrastructure.Messaging
     {
         private IConnection _connection;
 
-        private const string ProductUpdate_Queue = "product-state-change";
+        private const string OrderUpdate_Queue = "order-state-change";
 
         public RabbitMqMessageSender(RabbitMqConfiguration configuration)
         {
@@ -44,7 +44,7 @@ namespace DistributedECommerce.Warehouse.Infrastructure.Messaging
         {
             switch (exchangeName)
             {
-                case "product:product-state-change": return new(ProductUpdate_Queue, "product-state-change");
+                case "order:order-state-change": return new(OrderUpdate_Queue, "order-state-change");
                 default: throw new Exception("No queue found");
             }
         }

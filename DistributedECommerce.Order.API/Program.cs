@@ -58,7 +58,7 @@ try
     var warehouseApiClientConfiguration = new WarehouseApiClientConfiguration();
     builder.Configuration.Bind("WarehouseApiClientConfiguration", warehouseApiClientConfiguration);
     builder.Services.AddWarehouseApiClient(warehouseApiClientConfiguration);
-    builder.Services.AddHostedService<ProductUpdateConsumer>();
+    builder.Services.AddHostedService<OrderConsumer>();
 
     builder.Services
         .AddApiVersioning(options =>

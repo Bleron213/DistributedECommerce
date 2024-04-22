@@ -5,10 +5,8 @@ using System.Text;
 
 namespace DistributedECommerce.Warehouse.Common.Message
 {
-    public class ProductStateChangedMessage
+    public class OrderStateChangedMessage
     {
-        public Guid ProductId { get; set; }
-        public string? OrderId { get; set; }
-        public ProductStatus Status { get; set; }
+        public string OrderId { get; set; }
     }
 }

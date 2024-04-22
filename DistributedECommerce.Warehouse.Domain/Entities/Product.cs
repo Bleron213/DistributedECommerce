@@ -47,7 +47,6 @@ namespace DistributedECommerce.Warehouse.Domain.Entities
             {
                 case ProductStatus.IN_PROCESS:
                 case ProductStatus.READY_TO_ASSEMBLE:
-                case ProductStatus.ASSEMBLED:
                     Status = ProductStatus.CANCELLED;
                     break;
                 

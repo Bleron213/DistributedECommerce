@@ -15,7 +15,7 @@ using System.Text;
 
 namespace DistributedECommerce.Orders.Application.BackgroundServices
 {
-    public class ProductUpdateConsumer : BackgroundService
+    public class OrderConsumer : BackgroundService
     {
         private readonly IConnection _connection;
         private readonly IModel _channel;
@@ -24,9 +24,9 @@ namespace DistributedECommerce.Orders.Application.BackgroundServices
 
         private IOrderDbContext _dbContext;
         private IDbConnection _db;
-        private ILogger<ProductUpdateConsumer> _logger;
+        private ILogger<OrderConsumer> _logger;
 
-        public ProductUpdateConsumer(
+        public OrderConsumer(
             IServiceProvider services,
             IConfiguration configuration,
             RabbitMqConfiguration rabbitMqConfiguration
@@ -43,7 +43,7 @@ namespace DistributedECommerce.Orders.Application.BackgroundServices
 
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
-            _channel.QueueDeclare("product-state-change", false, false, false, null);
+            _channel.QueueDeclare("order-state-change", false, false, false, null);
         }
 
         protected async override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -53,30 +53,32 @@ namespace DistributedECommerce.Orders.Application.BackgroundServices
             consumer.Received += async (ch, ea) =>
             {
                 var content = Encoding.UTF8.GetString(ea.Body.ToArray());
-                var productStateChangedMessage = JsonConvert.DeserializeObject<ProductStateChangedMessage>(content);
-                await HandleProductStateChange(productStateChangedMessage);
+                var productStateChangedMessage = JsonConvert.DeserializeObject<OrderStateChangedMessage>(content);
+                await OrderStateChanged(productStateChangedMessage);
                 _channel.BasicAck(ea.DeliveryTag, false);
             };
 
-            _channel.BasicConsume("product-state-change", false, consumer);
+            _channel.BasicConsume("order-state-change", false, consumer);
         }
 
-        private async Task HandleProductStateChange(ProductStateChangedMessage productStateChangedMessage)
+        private async Task OrderStateChanged(OrderStateChangedMessage orderStateChangedMessage)
         {
             using var scope = _services.CreateScope();
             _dbContext = scope.ServiceProvider.GetRequiredService<IOrderDbContext>();
-            _logger = scope.ServiceProvider.GetRequiredService<ILogger<ProductUpdateConsumer>>();
+            _logger = scope.ServiceProvider.GetRequiredService<ILogger<OrderConsumer>>();
 
-            var orderedProduct = await _dbContext.OrderProducts.FirstOrDefaultAsync(x => x.Id == productStateChangedMessage.ProductId);
-            if(orderedProduct == null)
+            try
             {
-                _logger.LogWarning("No product was found with id = {id}", productStateChangedMessage.ProductId);
-                return;
+                var orderId = Guid.Parse(orderStateChangedMessage.OrderId);
+                var order = await _dbContext.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
+                order?.OrderReady();
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in OrderConsumer");
             }
 
-            orderedProduct.StateChange(productStateChangedMessage.Status);
-            var order = await _dbContext.Orders.Include(x => x.OrderedProducts).FirstAsync(x => x.Id == orderedProduct.Id);
-            order.ProductStateChanged();
         }
     }
 }

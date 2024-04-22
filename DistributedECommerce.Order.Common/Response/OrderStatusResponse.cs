@@ -1,7 +1,4 @@
-﻿using DistributedECommerce.Orders.Common.Enums;
-using System;
-
-namespace DistributedECommerce.Orders.Common.Response
+﻿namespace DistributedECommerce.Orders.Common.Response
 {
     public class OrderStatusResponse
     {
